@@ -1,12 +1,15 @@
 import { Box, Heading, Flex, VStack, HStack, Avatar, Text } from "@chakra-ui/react";
+import { Icon } from '@chakra-ui/react';
 
-function MenuList({name, children}){
+function MenuList({name, children, spacing = '1', icon }){
     return (
         <Box w='full'>
-            <Heading fontWeight='bold' color='apple.black' fontSize='xl' mb='3'>{name}</Heading>
+            <HStack mb='3' alignItems='center' color='apple.black'>
+                <Heading fontWeight='bold' fontSize='md'>{name}</Heading>
+            </HStack>
             <VStack
                 alignItems='flex-start'
-                spacing='2'
+                spacing={spacing}
             >
                 {children}
             </VStack>

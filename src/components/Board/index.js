@@ -9,7 +9,8 @@ function Board({ tasks, edges }){
     return (
         <Box
             bgColor='#f5f5f7'
-            h='100%'
+            w='100vw'
+            h='100vh'
             flex='1'
             borderTopLeftRadius='3xl'
         >

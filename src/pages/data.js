@@ -1,5 +1,5 @@
 export default {
-    title: 'Доска grey2001',
+    title: 'Физика для клоунов',
     type: 'jira',
     nodes: [{
         id: '1',
@@ -28,6 +28,15 @@ export default {
         type: 'task',
         state: 1,
         description: 'Если тебе где-то не рады без кабачковой икры, то и с кабачковой икрой туда идти не стоит.'
+    }, {
+        id: '4',
+        title: 'Пригласить Леру в чат уважаемых коллег',
+        workers: [6],
+        tags: [4],
+        position: { x: 600, y: 400 },
+        type: 'task',
+        state: 3,
+        description: '«Ладно нужно не убивать кринж а убить часть твоего организма который кринжует.»'
     }],
     edges: [{
         id: 'e1-2',
@@ -52,8 +61,13 @@ export default {
         img: 'https://www.looper.com/img/gallery/the-untold-truth-of-the-boys-hughie-campbell/l-intro-1653601279.jpg'
     }, {
         id: 4,
-        name: 'Юрченко Владосимба',
-        img: 'https://sun9-82.userapi.com/impf/c303213/v303213927/2338/_FtDzez1pxU.jpg?size=2560x1440&quality=96&sign=d7307954d0680c3afabf4c5e64ccc615&type=album'
+        name: 'Юрченко Владислав',
+        img: 'https://sun9-82.userapi.com/impf/c303213/v303213927/2338/_FtDzez1pxU.jpg?size=2560x1440&quality=96&sign=d7307954d0680c3afabf4c5e64ccc615&type=album',
+        isMe: true
+    }, {
+        id: 6,
+        name: 'Папикян Сергей',
+        img: 'https://sun9-66.userapi.com/impg/FLxG86ve2UPGK3agEPNxf8KPwHSVjvAj8vby-Q/j28xrQvOJzY.jpg?size=1920x1080&quality=95&sign=e135b1d195e54b906c3a14d275a610d8&type=album'
     }],
     tags: [{
         id: 1,
@@ -67,6 +81,10 @@ export default {
         id: 3,
         name: 'Платит только за себя',
         color: '#5f27cd'
+    }, {
+        id: 4,
+        name: 'Нарды онлайн',
+        color: '#000000'
     }],
     states: [{
         id: 1,

@@ -1,5 +1,6 @@
 import { Flex, Heading, HStack, Text } from '@chakra-ui/react';
 import { Position } from 'react-flow-renderer';
+import { useBoard } from '../../pages/BoardContext';
 
 import TaskNodeHandle from './TaskNodeHandle';
 import TaskNodeTag from './TaskNodeTag';
@@ -8,26 +9,33 @@ import TaskNodeUser from './TaskNodeUser';
 function TaskNode({ data }) {  
     const { title, users, tags, description, state } = data;
 
+    const { query } = useBoard();
+    const selected = (query.user.length || query.tag.length || query.state.length) && query.user.every(elem => users.map(item => item.id).includes(elem))
+    && query.tag.every(elem => tags.map(item => item.id).includes(elem))
+    && (!query.state.length || query.state.some(elem => state.id == elem));
+
+    console.log(query.state, state, query.state.some(elem => state.id == elem))
     return (
         <Flex
             direction='column'
             bgColor='#ffffff'
             w='350px'
-            maxH='170px'
+            //maxH='170px'
             px='4'
             py='4'
             shadow='xs'
             borderRadius='md'
+            outline={selected ? '2px solid #000000' : 'none'}
         >
             <TaskNodeHandle type='target' position={Position.Left} />
             <TaskNodeHandle type='source' position={Position.Right} />
 
             <Text
-                color='apple.blue.light'
-                fontSize='xs'
+                color='apple.black'
+                fontSize='sm'
                 mb='1'
                 textTransform='uppercase'
-                fontWeight='500'
+                fontWeight='600'
                 fontFamily='"JetBrains Mono", monospace'
             >
                 {state.name}

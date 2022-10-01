@@ -3,13 +3,18 @@ import BoardStat from "../components/BoardStat/index.js";
 import BoardComponent from '../components/Board';
 
 import data from './data.js';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import BoardProvider, { useBoard } from './BoardContext';
 
 function Board(){
     const [tasks, setTasks] = useState([]);
     const [edges, setEdges] = useState([]);
+    
     const { tags, states, users, title } = data;
 
+    const boardContext = useBoard();
+
+    console.log(1, boardContext)
     useEffect(() => {
         setTasks(data.nodes.map(taskNode => {
             return {
@@ -28,52 +33,24 @@ function Board(){
                             data.tags.find(item => item.id == tag)
                         );
                     }),
-                    state: data.states.find(item => item.id == taskNode.state)
+                    state: data.states.find(item => item.id == taskNode.state),
+                    //search_selected: boardContext.user.every(elem => taskNode.workers.includes(elem))
                 }
             }
         }));
 
         setEdges(data.edges);
-    }, [data])
+    }, [data]);
 
     return (
-        <Box>
-            <Flex
-                h='80px'
-                alignItems='center'
-            >
-                <Flex
-                    w='350px'
-                    alignItems='center'
-                    justifyContent='center'
-                >
-                    <Box
-                        ml='-5'
-                        w='35px'
-                        h='35px'
-                        bgColor='red'
-                        //transform='rotate(20deg)'
-                        borderRadius='md'
-                        bgGradient='linear(to-tr, #ff4e50, #f9d423)'
-                    ></Box>
-                    <Heading
-                        fontWeight='700'
-                        letterSpacing='tight'
-                        fontSize='4xl'
-                        zIndex='10'
-                        ml='3'
-                        bgGradient='linear(to-r, #ff4e50, #f9d423)'
-                        bgClip='text'
-                    >
-                        DISSENT.
-                    </Heading>
+        <BoardProvider>
+            <Box>
+                <Flex alignItems='flex-end' h='calc(100vh)' position='relative'>
+                    <BoardStat tags={tags} states={states} users={users} title={title} />
+                    <BoardComponent tasks={tasks} edges={edges} />
                 </Flex>
-            </Flex>
-            <Flex alignItems='flex-end' h='calc(100vh - 80px)'>
-                <BoardStat tags={tags} states={states} users={users} title={title} />
-                <BoardComponent tasks={tasks} edges={edges} />
-            </Flex>
-        </Box>
+            </Box>
+        </BoardProvider>
     );
 }
 
