@@ -36,7 +36,7 @@ export default function BoardProvider({ children }){
         setQuery(prev => {
             return {
                 ...prev,
-                state: toggleArray([...prev.state], stateId)
+                state: [stateId]
             }
         })
     };
