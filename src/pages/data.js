@@ -1,5 +1,5 @@
 export default {
-    title: 'Физика для клоунов',
+    title: 'Почему Каролина?',
     type: 'jira',
     nodes: [{
         id: '1',
@@ -24,7 +24,7 @@ export default {
         title: 'Кабачковая икра',
         workers: [4],
         tags: [2],
-        position: { x: 1200, y: 300 },
+        position: { x: 1200, y: -150 },
         type: 'task',
         state: 1,
         description: 'Если тебе где-то не рады без кабачковой икры, то и с кабачковой икрой туда идти не стоит.'
@@ -37,15 +37,40 @@ export default {
         type: 'task',
         state: 3,
         description: '«Ладно нужно не убивать кринж а убить часть твоего организма который кринжует.»'
+    }, {
+        id: '5',
+        title: 'Выяснить почему Каролина.',
+        workers: [6],
+        tags: [5],
+        position: { x: 1100, y: 300 },
+        type: 'task',
+        state: 2,
+        description: 'Связанно ли это с девушкой с пуговицами?'
+    }, {
+        id: '6',
+        title: 'Загадка от Жака Фреско',
+        workers: [4, 6],
+        tags: [4, 5],
+        position: { x: 450, y: 700 },
+        type: 'task',
+        state: 4,
+        description: 'Как Максим Бастрыкин придумал свой ник max_bstr?'
     }],
     edges: [{
-        id: 'e1-2',
         source: '1',
         target: '2',
     }, {
-        id: 'e1-3',
         source: '2',
-        target: '3',
+        target: '3'
+    }, {
+        source: '2',
+        target: '5'
+    }, {
+        source: '1',
+        target: '4'
+    }, {
+        source: '1',
+        target: '6'
     }],
     users: [{
         id: 1,
@@ -85,6 +110,10 @@ export default {
         id: 4,
         name: 'Нарды онлайн',
         color: '#000000'
+    }, {
+        id: 5,
+        name: 'Деревня',
+        color: 'rgb(10, 132, 255)'
     }],
     states: [{
         id: 1,

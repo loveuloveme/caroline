@@ -1,23 +1,24 @@
-import { Box, Heading, Flex, VStack, HStack, Avatar, Text } from "@chakra-ui/react";
-import { hex } from 'color-convert';
-import { useEffect, useState } from "react";
-import { useBoard } from "../../pages/BoardContext";
+import { Box, HStack, Text } from "@chakra-ui/react";
+import { useMemo } from "react";
+import { useBoard } from "../../pages/Board/context";
 
-function TagItem({ id, color = '#000000', name = 'no name' }){
+function TagItem({ id, color = '#000000', name = 'Tag' }){
     const { query, toggleTag } = useBoard();
-    const selected = query.tag.find(item => item === id);
-    
+
+    const selected = useMemo(() => query.tag.find(item => item === id), [query.tag, id]);
+
     return (
         <HStack
             onClick={() => toggleTag(id)}
-
             w='full'
             spacing='3'
-            bgColor={ selected ? 'gray.200' : 'gray.50' }
+            bgColor={ selected ? color : 'white' }
             px='2'
             py='2'
             borderRadius='md'
             cursor='pointer'
+
+            transition='all 0.1s ease-in-out'
             
             _hover={{
                 bgColor: selected ? `` : `gray.100`

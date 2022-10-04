@@ -1,84 +1,69 @@
-import { Box, Heading, Flex, VStack, HStack, Avatar, Text, Image } from "@chakra-ui/react";
-import { CgHashtag, CgUserlane, CgMenuBoxed } from 'react-icons/cg';
-
+import { Flex, VStack } from "@chakra-ui/react";
 import MenuList from "./MenuList";
 import UserItem from "./UserItem";
 import TagItem from "./TagItem";
 import StateItem from "./StateItem";
-import { useBoard } from "../../pages/BoardContext";
+import { useBoard } from "../../pages/Board/context";
+import Logotype from "../Logotype";
 
-function LogotypeSection(){
-    return (
-        <Flex
-            w='full'
-            alignItems='center'
-            mb='2'
-        >
-            <Heading
-                fontWeight='700'
-                letterSpacing='tight'
-                fontSize='3xl'
-                zIndex='10'
-                color='apple.black'
-                // ml='2'
-                bgGradient='linear(to-r, #ff4e50, #f9d423)'
-                bgClip='text'
-            >
-                CAROLINE
-            </Heading>
-        </Flex>
-    );
-}
-
-function BoardStat({ title, users, tags, states }){
-    const data = useBoard();
+function BoardStat({ users, tags, states }){
+    const { query, clearUser, clearTag, clearState } = useBoard();
 
     return (
         <VStack
             w='350px'
             h='full'
-            spacing='7'
-            px='7'
-            pb='10'
-            pt='10'
+            spacing='0'
             alignItems='flex-start'
-            overflow='auto'
-            zIndex='10'
-            position='absolute'
-            left='0'
-            top='0'
-            bgColor='whiteAlpha.500'
-            style={{
-                backdropFilter: 'blur(10px)'
-            }}
+            position='relative'
         >
-            <LogotypeSection />
-            <Box
+            <Flex
+                position='absolute'
+                h='120px'
                 w='full'
-                px='0'
+                alignItems='center'
+                mb='2'
+                pl='5'
+                top='0'
+                left='0'
+                zIndex='10'
+                bgColor='whiteAlpha.900'
             >
-                <Heading fontFamily="'JetBrains Mono', monospace" letterSpacing='tighter' fontSize='5xl' fontWeight='bold' color='apple.black'>
-                    {title}
-                </Heading>
-                <Flex mt='2' alignItems='center' mb='2' fontFamily="'JetBrains Mono', monospace">
-                    <Image bgColor='#ffffff' borderRadius='sm' src={require('./icons/trello.png')} w='15px' h='15px' mr='8px' />  
-                    <Text fontSize='md' color='gray.400'>
-                        доска Trello
-                    </Text>
-                </Flex> 
-            </Box>
+                <Logotype />
+            </Flex>
+            <VStack
+                px='5'
+                pb='10'
+                w='full'
+                pt='120px'
+                flex='1'
+                overflow='auto'
+                spacing='7'
+            >
+                <MenuList
+                    name='Исполнители'
+                    active={query.user.length}
+                    clear={clearUser}
+                >
+                    {users.map((user, index) => <UserItem id={user.id} name={user.name} img={user.img} isMe={user.isMe} key={index} />)}
+                </MenuList>
 
-            <MenuList name='Исполнители' icon={CgUserlane}>
-                {users.map((user, index) => <UserItem id={user.id} name={user.name} img={user.img} isMe={user.isMe} key={index} />)}
-            </MenuList>
+                <MenuList
+                    name='Тэги'
+                    active={query.tag.length}
+                    clear={clearTag}
+                >
+                    {tags.map((tag, index) => <TagItem id={tag.id} name={tag.name} color={tag.color} key={index} />)}
+                </MenuList>
 
-            <MenuList name='Тэги' icon={CgHashtag}>
-                {tags.map((tag, index) => <TagItem id={tag.id} name={tag.name} color={tag.color} key={index} />)}
-            </MenuList>
-
-            <MenuList name='Состояния' icon={CgMenuBoxed}>
-                {states.map((state, index) => <StateItem id={state.id} name={state.name} key={index} />)}
-            </MenuList>
+                <MenuList
+                    name='Состояния'
+                    active={query.state.length}
+                    clear={clearState}
+                >
+                    {states.map((state, index) => <StateItem id={state.id} name={state.name} key={index} />)}
+                </MenuList>
+            </VStack>
         </VStack>
     );
 }

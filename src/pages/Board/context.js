@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { toggleArray } from "./helpers";
+import React, { useContext, useState } from "react";
+import { toggleArray } from "../../helpers";
 
 export const BoardContext = React.createContext();
 
@@ -13,6 +13,33 @@ export default function BoardProvider({ children }){
         state: [],
         user: []
     });
+
+    const clearUser = () => {
+        setQuery(prev => {
+            return {
+                ...prev,
+                user: []
+            }
+        })
+    };
+
+    const clearTag = () => {
+        setQuery(prev => {
+            return {
+                ...prev,
+                tag: []
+            }
+        })
+    };
+
+    const clearState = () => {
+        setQuery(prev => {
+            return {
+                ...prev,
+                state: []
+            }
+        })
+    };
 
     const toggleUser = (userId) => {
         setQuery(prev => {
@@ -36,13 +63,15 @@ export default function BoardProvider({ children }){
         setQuery(prev => {
             return {
                 ...prev,
-                state: [stateId]
+                state: prev.state[0] === stateId ? [] : [stateId]
             }
         })
     };
 
     return (
-        <BoardContext.Provider value={{ query, toggleUser, toggleTag, toggleState }}>
+        <BoardContext.Provider
+            value={{ query,toggleUser, toggleTag, toggleState, clearState, clearTag, clearUser }}
+        >
             {children}
         </BoardContext.Provider>
     );

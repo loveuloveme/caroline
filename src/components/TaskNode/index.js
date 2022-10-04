@@ -1,34 +1,42 @@
 import { Flex, Heading, HStack, Text } from '@chakra-ui/react';
+import { useMemo } from 'react';
 import { Position } from 'react-flow-renderer';
-import { useBoard } from '../../pages/BoardContext';
+import { useBoard } from "../../pages/Board/context";
 
 import TaskNodeHandle from './TaskNodeHandle';
 import TaskNodeTag from './TaskNodeTag';
 import TaskNodeUser from './TaskNodeUser';
 
 function TaskNode({ data }) {  
-    const { title, users, tags, description, state } = data;
+    const {
+        title, users, tags, description,
+        state, sourceCount, targetCount
+    } = data;
 
     const { query } = useBoard();
-    const selected = (query.user.length || query.tag.length || query.state.length) && query.user.every(elem => users.map(item => item.id).includes(elem))
-    && query.tag.every(elem => tags.map(item => item.id).includes(elem))
-    && (!query.state.length || query.state.some(elem => state.id == elem));
 
-    console.log(query.state, state, query.state.some(elem => state.id == elem))
+    const selected = useMemo(() => {
+        return (query.user.length || query.tag.length || query.state.length)
+        && query.user.every(elem => users.map(item => item.id).includes(elem))
+        && query.tag.every(elem => tags.map(item => item.id).includes(elem))
+        && (!query.state.length || query.state.some(elem => state.id == elem));
+    }, [query]);
+
     return (
         <Flex
             direction='column'
             bgColor='#ffffff'
             w='350px'
-            //maxH='170px'
             px='4'
             py='4'
-            shadow='xs'
+            // shadow='xs'
             borderRadius='md'
-            outline={selected ? '2px solid #000000' : 'none'}
+            outline='2px solid'
+            outlineColor={selected ? '#000000' : 'transparent'}
+            transition='all 0.2s ease-in'
         >
-            <TaskNodeHandle type='target' position={Position.Left} />
-            <TaskNodeHandle type='source' position={Position.Right} />
+            <TaskNodeHandle type='target' position={Position.Left} count={targetCount} />
+            <TaskNodeHandle type='source' position={Position.Right} count={sourceCount} />
 
             <Text
                 color='apple.black'
@@ -41,20 +49,20 @@ function TaskNode({ data }) {
                 {state.name}
             </Text>
             <Heading
-                fontSize='xl'
+                letterSpacing='tight'
+                fontSize='2xl'
                 maxW='80%'
-                noOfLines={2}
+                noOfLines={3}
                 color='apple.black'
             >
                 {title}
             </Heading>
             {description &&
                 <Text
-                    fontSize='xs'
+                    fontSize='sm'
                     color='blackAlpha.700'
                     noOfLines={2}
-                    mt='1'
-                    mb='1'
+                    mt='2'
                 >
                     {description}
                 </Text>

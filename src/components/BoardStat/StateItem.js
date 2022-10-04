@@ -1,9 +1,11 @@
-import { Box, Heading, Flex, VStack, HStack, Avatar, Text } from "@chakra-ui/react";
-import { useBoard } from "../../pages/BoardContext";
+import { Box, HStack, Text } from "@chakra-ui/react";
+import { useMemo } from "react";
+import { useBoard } from "../../pages/Board/context";
 
 function StateItem({ id, name }){
     const { query, toggleState } = useBoard();
-    const selected = query.state.find(item => item === id);
+
+    const selected = useMemo(() => query.state.find(item => item === id), [query.state, id]);
     
     return (
         <HStack
@@ -11,11 +13,12 @@ function StateItem({ id, name }){
 
             w='full'
             spacing='3'
-            bgColor={ selected ? 'gray.200' : 'gray.50' }
+            bgColor={ selected ? 'gray.200' : 'white' }
             px='3'
             py='2'
             borderRadius='md'
             cursor='pointer'
+            transition='all 0.1s ease-in-out'
 
             _hover={{
                 bgColor: selected ? `` : `gray.100`
