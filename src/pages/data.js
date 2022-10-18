@@ -1,4 +1,5 @@
-export default {
+export default [{
+    id: '1',
     title: 'Почему Каролина?',
     type: 'jira',
     nodes: [{
@@ -6,10 +7,11 @@ export default {
         title: 'Make Vought Great Again',
         workers: [1, 2, 3],
         tags: [1],
-        position: { x: 0, y: 0 },
+        position: { x: -100, y: 0 },
         type: 'task',
         state: 4,
-        description: 'Vought International, formerly known as Vought American, is an American multi-billion dollar superhero entertainment conglomerate, currently led by Homelander.'
+        description: 'Vought International, formerly known as Vought American, is an American multi-billion dollar superhero entertainment conglomerate, currently led by Homelander.',
+        image: 'https://www.slashfilm.com/img/gallery/what-the-boys-season-3s-soldier-boy-twist-means-for-the-finale-beyond/intro-1656681863.jpg'
     }, {
         id: '2',
         title: 'Уволиться из Яндекс',
@@ -18,7 +20,7 @@ export default {
         position: { x: 600, y: 190 },
         type: 'task',
         state: 2,
-        description: 'Блин, нафиг я сюда пришёл?'
+        description: 'Блин, зачем я сюда пришёл?'
     }, {
         id: '3',
         title: 'Кабачковая икра',
@@ -45,7 +47,7 @@ export default {
         position: { x: 1100, y: 300 },
         type: 'task',
         state: 2,
-        description: 'Связанно ли это с девушкой с пуговицами?'
+        description: ''
     }, {
         id: '6',
         title: 'Загадка от Жака Фреско',
@@ -54,7 +56,26 @@ export default {
         position: { x: 450, y: 700 },
         type: 'task',
         state: 4,
-        description: 'Как Максим Бастрыкин придумал свой ник max_bstr?'
+        description: 'Как Максим Бастрыкин придумал свой ник max_bstr?',
+        image: 'https://img09.rl0.ru/afisha/e1200x600i/daily.afisha.ru/uploads/images/4/7f/47f32d202b9ac73d4a7a87c1609e6265.png'
+    }, {
+        id: '7',
+        title: 'Ха-ха-ха. Очень смешно. :)',
+        workers: [4, 6],
+        tags: [4, 5],
+        position: { x: 1250, y: 500 },
+        type: 'task',
+        state: 2,
+        description: 'Это программист, я фотошоп. BASED.'
+    }, {
+        id: '8',
+        title: 'Зайти в зум, хотя бы ради приличия.',
+        workers: [7],
+        tags: [6],
+        position: { x: 1900, y: 350 },
+        type: 'task',
+        state: 4,
+        description: 'Ссори ребят, у меня сегодня важная прогулка, сегодня ретроградный Меркурий.'
     }],
     edges: [{
         source: '1',
@@ -71,6 +92,12 @@ export default {
     }, {
         source: '1',
         target: '6'
+    }, {
+        source: '6',
+        target: '7'
+    }, {
+        source: '7',
+        target: '8'
     }],
     users: [{
         id: 1,
@@ -93,6 +120,10 @@ export default {
         id: 6,
         name: 'Папикян Сергей',
         img: 'https://sun9-66.userapi.com/impg/FLxG86ve2UPGK3agEPNxf8KPwHSVjvAj8vby-Q/j28xrQvOJzY.jpg?size=1920x1080&quality=95&sign=e135b1d195e54b906c3a14d275a610d8&type=album'
+    }, {
+        id: 7,
+        name: 'Якимов Даниил',
+        img: 'https://sun9-22.userapi.com/impg/FyJ91pN4Dbr9XydbAXZyuM6osoZe1H6M2AjFoQ/87CO81T416o.jpg?size=1280x853&quality=95&sign=0ae4e78fef64cd8c487c768d37363922&type=album'
     }],
     tags: [{
         id: 1,
@@ -112,8 +143,12 @@ export default {
         color: '#000000'
     }, {
         id: 5,
-        name: 'Деревня',
+        name: 'ИТМО.Олимп',
         color: 'rgb(10, 132, 255)'
+    }, {
+        id: 6,
+        name: 'Секта',
+        color: '#34495e'
     }],
     states: [{
         id: 1,
@@ -128,4 +163,44 @@ export default {
         id: 4,
         name: 'Провалено'
     }]
-};
+},
+{
+    id: '2',
+    title: 'Я мразь',
+    type: 'trello',
+},
+{
+    id: '3',
+    title: 'Не имей 5 коллег, а имей 600 сектантов',
+    type: 'trello',
+}
+    , {
+    id: '4',
+    title: 'Папикянио',
+    type: 'trello',
+}
+    , {
+    id: '5',
+    title: 'Юрченко Влад',
+    type: 'jira',
+}
+    , {
+    id: '6',
+    title: 'Женщина-Халк: Авокадо',
+    type: 'trello',
+}
+    , {
+    id: '7',
+    title: 'Рожновский Иван',
+    type: 'trello',
+}
+    , {
+    id: '8',
+    title: 'Я рот переворачивал информатики',
+    type: 'trello',
+}
+    , {
+    id: '9',
+    title: 'Keep bouncing',
+    type: 'trello',
+}];

@@ -1,19 +1,25 @@
 import { Box, Heading, Flex, position, VStack, Image, Text, HStack } from "@chakra-ui/react";
 import BoardStat from "../../components/BoardStat/index.js";
 import BoardComponent from '../../components/Board';
-
-import data from '../data.js';
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import data1 from '../data.js';
 import React, { useEffect, useState } from "react";
 import BoardProvider, { useBoard } from './context';
+import Logotype from "../../components/Logotype/index.js";
+import ChakraBox from "../../components/ChakraBox/index.js";
 
-function Board(){
+const data = data1[0];
+
+function Board() {
     const [tasks, setTasks] = useState([]);
     const [edges, setEdges] = useState([]);
-    
+    const [isStatOpen, setStatOpen] = useState(true);
+
+    const handle = useFullScreenHandle();
+
     const { tags, states, users, title } = data;
 
-    const boardContext = useBoard();
-    
+
     useEffect(() => {
         setTasks(data.nodes.map(taskNode => {
             return {
@@ -43,67 +49,46 @@ function Board(){
             }
         }));
 
-        const source = new Map();
-        
-        setEdges(data.edges.map((item, index) => {
-            if(!source.has(item.source)){
-                source.set(item.source, 0);
-            }else{
-                source.set(item.source, source.get(item.source) + 1);
-            }
+        setTimeout(() => {
+            const source = new Map();
 
-            return {
-                ...item,
-                sourceHandle: `${source.get(item.source)}`
-            };
-        }));
-    }, [data]);
+            setEdges(data.edges.sort((a, b) => parseInt(a.source) - parseInt(b.source)).map((item, index) => {
+                if (!source.has(item.source)) {
+                    source.set(item.source, 0);
+                } else {
+                    source.set(item.source, source.get(item.source) + 1);
+                }
+
+                return {
+                    id: `${index}`,
+                    ...item,
+                    type: 'custom',
+                    sourceHandle: `${source.get(item.source)}`
+                };
+            }));
+        }, 100 * data.nodes.length + 1000)
+
+    }, []);
 
     return (
+
         <BoardProvider>
-            <Box>
-                <Flex
-                    alignItems='flex-end'
-                    h='100vh'
-                >
-                    <BoardStat tags={tags} states={states} users={users} title={title} />
-                    <Flex
-                        direction='column'
+            <Flex
+                direction='column'
+                h='100vh'
+                position='relative'
+            >
+                <FullScreen className='board-content' handle={handle}>
+                    <Box
                         h='100%'
-                        flex='1'
+                        position='relative'
+                        shadow='lg'
                     >
-                        <Flex
-                            h='120px'
-                            alignItems='center'
-                        >
-                            <VStack
-                                alignItems='flex-start'
-                                spacing='0'
-                            >
-                                <Text
-                                    display='inline'
-                                    fontWeight='900'
-                                    color='apple.blue.dark'
-                                    opacity='0.8'
-                                    mt='-5px !important'
-                                >
-                                    доска trello
-                                </Text>
-                                <Heading
-                                    letterSpacing='normal'
-                                    fontSize='4xl'
-                                    fontWeight='bold'
-                                    color='apple.black'
-                                    noOfLines={1}
-                                >
-                                    {title}
-                                </Heading>
-                            </VStack>
-                        </Flex>
+                        <BoardStat onChange={setStatOpen} tags={tags} states={states} users={users} title={title} handle={handle} />
                         <BoardComponent tasks={tasks} edges={edges} />
-                    </Flex>
-                </Flex>
-            </Box>
+                    </Box>
+                </FullScreen>
+            </Flex>
         </BoardProvider>
     );
 }

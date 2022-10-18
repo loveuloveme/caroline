@@ -5,36 +5,23 @@ import TaskNode from "../TaskNode";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Icon } from '@chakra-ui/react'
 import { IoMdResize } from 'react-icons/io'
+import TaskEdge from "../TaskEdge";
 
-function Board({ tasks, edges }){
-    const handle = useFullScreenHandle();
+function Board({ tasks, edges }) {
     const nodeTypes = useMemo(() => ({ task: TaskNode }), []);
+    const edgeTypes = useMemo(() => ({ custom: TaskEdge }), []);
 
     return (
         <Box
+            w='100%'
+            h='100%'
             bgColor='#f5f5f7'
-            h='100vh'
             flex='1'
-            borderTopLeftRadius='3xl'
-            position='relative'
         >
-            <Button
-                position='absolute'
-                leftIcon={<Icon as={IoMdResize} />}
-                colorScheme='blackAlpha'
-                zIndex='10'
-                top='5  '
-                right='5'
-                onClick={handle.enter}
-            >
-                Хе-хе
-            </Button>
-            <FullScreen handle={handle}>
-                <ReactFlow nodeTypes={nodeTypes} defaultNodes={tasks} defaultEdges={edges} fitView>
-                    <MiniMap />
-                </ReactFlow>
-            </FullScreen>
-        </Box>
+            <ReactFlow nodeTypes={nodeTypes} edgeTypes={edgeTypes} defaultNodes={tasks} defaultEdges={edges} fitView>
+                <MiniMap />
+            </ReactFlow>
+        </Box >
     );
 }
 
