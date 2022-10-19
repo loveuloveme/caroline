@@ -31,7 +31,8 @@ function TaskNode({ data }) {
 
             transition={{
                 duration: 0.5,
-                delay: 0.1 * parseInt(id)
+                delay: 1.5
+                // delay: 0.1 * parseInt(id)
             }}
             shadow='sm'
         >

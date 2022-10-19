@@ -12,7 +12,7 @@ function BoardItem({ name, type }) {
     return (
         <Link to='/board'>
             <ChakraBox
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 1 }}
                 display='flex'
                 bgColor='white'

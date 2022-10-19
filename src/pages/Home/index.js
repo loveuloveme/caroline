@@ -1,15 +1,10 @@
-import { Box, Heading, SimpleGrid, Text, Flex, Container, Avatar, HStack, useBoolean, Button } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Text, Flex, Container } from "@chakra-ui/react";
 import Logotype from '../../components/Logotype';
 import BoardItem from "../../components/BoardItem";
-import AddBoard from "../../components/BoardItem/AddBoard";
 import Profile from "../../components/Profile";
 import boards from '../data';
-import GridLayout from "react-grid-layout";
-import { useState, useMemo, useEffect } from "react";
-
-// import 'react-grid-layout/css/styles.css';
-// import 'react-resizable/css/styles.css';
 import ChakraBox from "../../components/ChakraBox";
+import Footer from '../../components/Footer';
 
 import bgImage from './bgImagePink.png';
 
@@ -32,29 +27,14 @@ const pageTransition = {
 };
 
 function Home() {
-    const boardItemSize = useMemo(() => ({ w: 1, h: 5 }), []);
-    const [layout, setLayout] = useState([]);
-
-    useEffect(() => {
-        const layout = boards.map((board, index) => {
-            return {
-                i: board.id,
-                ...boardItemSize,
-                x: boardItemSize.w * (index % 3),
-                y: boardItemSize.w * Math.floor(index / 3)
-            };
-        });
-
-        setLayout(layout);
-    }, [boardItemSize]);
-
     return (
         <ChakraBox
+            display='flex'
+            flexDirection='column'
             w='100vw'
             h='100vh'
             bgColor='#f5f5f7'
             overflowX='hidden'
-            pb='100px'
 
             initial="initial"
             animate="in"
@@ -79,7 +59,7 @@ function Home() {
                         alignItems='center'
                         justifyContent='space-between'
                     >
-                        <Logotype size='4xl' color='apple.black' />
+                        <Logotype size='3xl' color='apple.black' />
                         <Profile />
                     </Flex>
                     <Flex
@@ -94,7 +74,6 @@ function Home() {
                             color='apple.black'
                         >
                             BOARDS
-                            <Text as='sub' fontSize='md'>доски короче</Text>
                         </Heading>
                     </Flex>
                 </Container>
@@ -102,27 +81,12 @@ function Home() {
             <Container
                 maxW='container.xl'
                 mt='-30px'
+                flex='1'
             >
-                {/* <GridLayout
-                    className='home-layout'
-                    layout={layout}
-                    cols={3}
-                    rowHeight={30}
-                    width={1280}
-                    isResizable={false}
-                    isDraggable={false}
-                >
-                    {boards.map(board => {
-                        return (
-                            <Box key={board.id}>
-                                <BoardItem name={board.title} type={board.type} />
-                            </Box>
-                        );
-                    })}
-                </GridLayout> */}
                 <SimpleGrid
                     columns='4'
                     gap='3'
+                    pb='100px'
                 >
                     {boards.map(board => {
                         return (
@@ -131,6 +95,7 @@ function Home() {
                     })}
                 </SimpleGrid>
             </Container>
+            <Footer />
         </ChakraBox>
     );
 }

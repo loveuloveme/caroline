@@ -51,7 +51,7 @@ function TaskEdge(props) {
                 }}
 
                 transition={{
-                    delay: 0.1 * parseInt(id),
+                    delay: 2,
                     duration: 1.5,
                     type: 'spring',
                     bounce: '0.20'

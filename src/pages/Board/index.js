@@ -49,46 +49,52 @@ function Board() {
             }
         }));
 
-        setTimeout(() => {
-            const source = new Map();
+        const source = new Map();
 
-            setEdges(data.edges.sort((a, b) => parseInt(a.source) - parseInt(b.source)).map((item, index) => {
-                if (!source.has(item.source)) {
-                    source.set(item.source, 0);
-                } else {
-                    source.set(item.source, source.get(item.source) + 1);
-                }
+        setEdges(data.edges.sort((a, b) => parseInt(a.source) - parseInt(b.source)).map((item, index) => {
+            if (!source.has(item.source)) {
+                source.set(item.source, 0);
+            } else {
+                source.set(item.source, source.get(item.source) + 1);
+            }
 
-                return {
-                    id: `${index}`,
-                    ...item,
-                    type: 'custom',
-                    sourceHandle: `${source.get(item.source)}`
-                };
-            }));
-        }, 100 * data.nodes.length + 1000)
+            return {
+                id: `${index}`,
+                ...item,
+                type: 'custom',
+                sourceHandle: `${source.get(item.source)}`
+            };
+        }));
 
     }, []);
 
     return (
-
         <BoardProvider>
-            <Flex
-                direction='column'
-                h='100vh'
-                position='relative'
+            <ChakraBox
+                exit={{
+                    opacity: 0
+                }}
+                transition={{
+                    delay: 0.5
+                }}
             >
-                <FullScreen className='board-content' handle={handle}>
-                    <Box
-                        h='100%'
-                        position='relative'
-                        shadow='lg'
-                    >
-                        <BoardStat onChange={setStatOpen} tags={tags} states={states} users={users} title={title} handle={handle} />
-                        <BoardComponent tasks={tasks} edges={edges} />
-                    </Box>
-                </FullScreen>
-            </Flex>
+                <Flex
+                    direction='column'
+                    h='100vh'
+                    position='relative'
+                >
+                    <FullScreen className='board-content' handle={handle}>
+                        <Box
+                            h='100%'
+                            position='relative'
+                            shadow='lg'
+                        >
+                            <BoardStat onChange={setStatOpen} tags={tags} states={states} users={users} title={title} handle={handle} />
+                            <BoardComponent tasks={tasks} edges={edges} />
+                        </Box>
+                    </FullScreen>
+                </Flex>
+            </ChakraBox>
         </BoardProvider>
     );
 }
