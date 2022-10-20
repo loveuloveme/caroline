@@ -166,11 +166,11 @@ export default [{
     }]
 }, {
     id: '2',
-    title: 'Я мразь',
+    title: 'Я мегаплох',
     type: 'trello',
 }, {
     id: '3',
-    title: 'Не имей 5 коллег, а имей 600 сектантов',
+    title: 'Не имей 5 коллег, а имей 600 кого-то',
     type: 'trello',
 }, {
     id: '4',
@@ -190,7 +190,7 @@ export default [{
     type: 'trello',
 }, {
     id: '8',
-    title: 'Я рот переворачивал информатики',
+    title: 'Hehe',
     type: 'trello',
 }, {
     id: '9',
