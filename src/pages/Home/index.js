@@ -2,11 +2,11 @@ import { Box, Heading, SimpleGrid, Text, Flex, Container } from "@chakra-ui/reac
 import Logotype from '../../components/Logotype';
 import BoardItem from "../../components/BoardItem";
 import Profile from "../../components/Profile";
-import boards from '../data';
-import ChakraBox from "../../components/ChakraBox";
+import boards from '../../data';
+import ChakraBox from "../../components/FramerElement";
 import Footer from '../../components/Footer';
 
-import bgImage from './bgImagePink.png';
+import bgImg from '../../assets/taskPink.png';
 
 const pageVariants = {
     initial: {
@@ -36,9 +36,9 @@ function Home() {
             bgColor='#f5f5f7'
             overflowX='hidden'
 
-            initial="initial"
-            animate="in"
-            exit="out"
+            initial='initial'
+            animate='in'
+            exit='out'
 
             variants={pageVariants}
             transition={pageTransition}
@@ -48,7 +48,7 @@ function Home() {
             >
                 <Container
                     maxW='container.xl'
-                    bgImage={bgImage}
+                    bgImage={bgImg}
                     bgSize='contain'
                     bgPosition='right center'
                     bgRepeat='no-repeat'
@@ -59,7 +59,10 @@ function Home() {
                         alignItems='center'
                         justifyContent='space-between'
                     >
-                        <Logotype size='3xl' color='apple.black' />
+                        <Logotype
+                            fontSize='3xl'
+                            color='apple.black'
+                        />
                         <Profile />
                     </Flex>
                     <Flex

@@ -1,17 +1,11 @@
-import { Box, Heading, SimpleGrid, Text, Flex, Container, Icon, HStack } from "@chakra-ui/react";
-import { GrClose } from 'react-icons/gr';
+import { Box, Text, Flex, Container, HStack } from "@chakra-ui/react";
 import Logotype from "../Logotype";
 import { CloseIcon } from '@chakra-ui/icons'
 import { useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-import ChakraBox from '../ChakraBox';
+import ChakraBox from '../FramerElement';
 import { useEffect } from "react";
-
-const sponsorVariants = {
-    visible: { opacity: 1, transition: { duration: 1 } },
-    hidden: { opacity: 0, }
-};
 
 function Footer() {
     const controls = useAnimation();
@@ -55,14 +49,17 @@ function Footer() {
                         ref={ref}
                         animate={controls}
                         initial="hidden"
-                        variants={sponsorVariants}
+                        variants={{
+                            visible: { opacity: 1, transition: { duration: 1 } },
+                            hidden: { opacity: 0, }
+                        }}
                     >
                         <HStack
                             spacing='5'
                         >
-                            <Logotype color='white' size='2xl' />
+                            <Logotype color='white' fontSize='2xl' />
                             <CloseIcon w='4' h='4' />
-                            <Text fontSize='2xl'>MrSkyScriper</Text>
+                            <Text fontSize='2xl'>HEHE</Text>
                         </HStack>
                     </ChakraBox>
                 </Flex>

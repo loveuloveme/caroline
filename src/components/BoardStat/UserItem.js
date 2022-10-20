@@ -9,8 +9,6 @@ function UserItem({ id, name, img, isMe = false }) {
 
     return (
         <HStack
-            onClick={() => toggleUser(id)}
-
             w='full'
             spacing='3'
             bgColor={selected ? 'gray.100' : 'white'}
@@ -19,12 +17,12 @@ function UserItem({ id, name, img, isMe = false }) {
             borderRadius='md'
             cursor='pointer'
             alignItems='center'
-
             transition='all 0.1s ease-in-out'
-
             _hover={{
-                bgColor: selected ? `` : `gray.100`
+                bgColor: selected ? '' : 'gray.100'
             }}
+
+            onClick={() => toggleUser(id)}
         >
             <Avatar size='sm' name={name} src={img} />
             <Text color='apple.black' fontSize='md' fontWeight='700'>{name}</Text>

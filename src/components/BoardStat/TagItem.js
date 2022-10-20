@@ -9,7 +9,6 @@ function TagItem({ id, color = '#000000', name = 'Tag' }) {
 
     return (
         <HStack
-            onClick={() => toggleTag(id)}
             w='full'
             spacing='3'
             bgColor={selected ? color : 'white'}
@@ -17,12 +16,12 @@ function TagItem({ id, color = '#000000', name = 'Tag' }) {
             py='2'
             borderRadius='md'
             cursor='pointer'
-
             transition='all 0.1s ease-in-out'
-
             _hover={{
                 bgColor: selected ? `` : `gray.100`
             }}
+
+            onClick={() => toggleTag(id)}
         >
             <Box
                 w='18px' h='18px' bgColor={color} borderRadius='full'

@@ -1,13 +1,10 @@
-import { Box, Button, Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useMemo } from "react";
 import ReactFlow, { MiniMap } from "react-flow-renderer";
 import TaskNode from "../TaskNode";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { Icon } from '@chakra-ui/react'
-import { IoMdResize } from 'react-icons/io'
 import TaskEdge from "../TaskEdge";
 
-function Board({ tasks, edges }) {
+function Board({ nodes, edges }) {
     const nodeTypes = useMemo(() => ({ task: TaskNode }), []);
     const edgeTypes = useMemo(() => ({ custom: TaskEdge }), []);
 
@@ -18,7 +15,13 @@ function Board({ tasks, edges }) {
             bgColor='#f5f5f7'
             flex='1'
         >
-            <ReactFlow nodeTypes={nodeTypes} edgeTypes={edgeTypes} defaultNodes={tasks} defaultEdges={edges} fitView>
+            <ReactFlow
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                defaultNodes={nodes}
+                defaultEdges={edges}
+                fitView
+            >
                 <MiniMap />
             </ReactFlow>
         </Box >

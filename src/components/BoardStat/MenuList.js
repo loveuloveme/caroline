@@ -1,4 +1,4 @@
-import { Box, Heading, Flex, VStack, HStack, Avatar, Text } from "@chakra-ui/react";
+import { Box, Heading, Flex, VStack } from "@chakra-ui/react";
 import { Icon } from '@chakra-ui/react';
 import { IoCloseSharp } from 'react-icons/io5';
 
@@ -10,7 +10,6 @@ function MenuList({ name, children, spacing = '1', active, clear }) {
             px='5'
             py='5'
             borderRadius='xl'
-        // shadow='sm'
         >
             <Flex
                 mb='3'

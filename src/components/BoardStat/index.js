@@ -1,4 +1,4 @@
-import { Flex, VStack, Heading, Text, Box, SimpleGrid, useBoolean, HStack } from "@chakra-ui/react";
+import { Flex, VStack, Text, Box, useBoolean, HStack } from "@chakra-ui/react";
 import MenuList from "./MenuList";
 import UserItem from "./UserItem";
 import TagItem from "./TagItem";
@@ -7,27 +7,22 @@ import { useBoard } from "../../pages/Board/context";
 import { Icon } from '@chakra-ui/react';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 import { IoExpand, IoGitBranch } from 'react-icons/io5';
-import { ImTrello } from 'react-icons/im';
-import { SiJira } from 'react-icons/si';
 import Logotype from "../Logotype";
 import { useEffect } from "react";
 import { useAnimation } from "framer-motion";
-import ChakraBox from "../ChakraBox";
-import Button from "../Button";
+import FramerBox from "../FramerElement";
+import Button, { VARIANTS } from "../Button";
 
-const list = {
+const barVariants = {
     visible: {
         opacity: 1,
         transition: {
-            when: "beforeChildren",
+            when: 'beforeChildren',
             staggerChildren: 0.1,
         },
     },
     hidden: {
         opacity: 0,
-        transition: {
-            when: "afterChildren",
-        },
     },
     slideHidden: {
         left: -370,
@@ -47,23 +42,18 @@ const list = {
     }
 }
 
-const item = {
+const itemVariants = {
     visible: { opacity: 1, x: 0 },
     hidden: { opacity: 0, x: -50 },
 }
 
-function BoardStat({ title, users, tags, states, handle, onChange, type }) {
+function BoardStat({ title, users, tags, states, handle }) {
     const { query, clearUser, clearTag, clearState } = useBoard();
 
     const [isOpen, setOpen] = useBoolean(true);
-    const [ready, setReady] = useBoolean(true);
+    const [isReady, setReady] = useBoolean(true);
 
     const controls = useAnimation();
-
-    useEffect(() => {
-        controls.start(isOpen ? 'slideOpen' : 'slideHidden');
-        onChange(isOpen);
-    }, [isOpen, onChange, controls])
 
     const openBoard = () => {
         window.open('https://trello.com');
@@ -74,25 +64,24 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
     };
 
     useEffect(() => {
-        controls.start("visible");
-    }, [])
+        controls.start('visible');
+    }, []);
+
+    useEffect(() => {
+        controls.start(isOpen ? 'slideOpen' : 'slideHidden');
+    }, [isOpen]);
 
     return (
-        <ChakraBox
+        <FramerBox
             display='flex'
             position='absolute'
             left='30px'
             h='100%'
 
-            // animate={{
-            //     left: isOpen ? '30px' : '-370px'
-            // }}
-
-            // transition={{ ease: 'anticipate', type: 'spring', bounce: '0' }}
-            initial="hidden"
-            variants={list}
+            variants={barVariants}
             animate={controls}
-            exit="slideHidden"
+            initial='hidden'
+            exit='slideHidden'
 
             onAnimationComplete={() => setReady.on()}
             onAnimationStart={() => setReady.off()}
@@ -115,14 +104,14 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                     spacing='7'
                     alignItems='flex-start'
                 >
-                    <Logotype size='3xl' />
-                    <ChakraBox
+                    <Logotype fontSize='3xl' />
+                    <FramerBox
                         bgColor='white'
                         px='5'
                         py='5'
                         borderRadius='xl'
 
-                        variants={item}
+                        variants={itemVariants}
                     >
                         <Text mb='10px' fontSize='lg' fontWeight='600' color='#b3b3b3'>Доска</Text>
                         <Text
@@ -131,7 +120,6 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                             fontSize='5xl'
                             fontWeight='700'
                             color='black'
-                            className='last-colored'
                         >
                             {title}
                         </Text>
@@ -141,7 +129,7 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                         >
                             <Button
                                 flex='1'
-                                variant='blue'
+                                variant={VARIANTS.BLUE}
                                 onClick={openBoard}
                             >
                                 Открыть доску
@@ -149,7 +137,6 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                             <Button
                                 w='50px'
                                 h='50px'
-                                variant='gray'
                                 onClick={setFullscreen}
                             >
                                 <Icon
@@ -158,64 +145,35 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                                     as={IoExpand}
                                 />
                             </Button>
-                            <Button w='50px' h='50px'>
-                                <Icon w='5' h='5' as={IoGitBranch} />
-                            </Button>
-                            {/* <Button
-                                size='md'
-                                colorScheme='blackAlpha'
-                                variant='solid'
-                                bgColor='apple.blue.light'
-                                fontSize='md'
-                                leftIcon={<Icon mr='2' w='4' h='4' as={type == 'jira' ? ImTrello : SiJira} />}
-                                justifyContent='flex-start'
-                                py='5'
-                                onClick={openBoard}
-                            >
-                                Доска
-                            </Button> 
                             <Button
-                                size='md'
-                                colorScheme='blackAlpha'
-                                variant='solid'
-                                bgColor='black'
-                                _hover={{ bg: '#323232' }}
-                                leftIcon={<Icon w='5' h='5' as={IoExpand} />}
-                                justifyContent='flex-start'
-                                onClick={setFullscreen}
+                                w='50px'
+                                h='50px'
                             >
-                                Увеличить
+                                <Icon
+                                    w='5'
+                                    h='5'
+                                    as={IoGitBranch}
+                                />
                             </Button>
-                            <Button
-                                size='md'
-                                colorScheme='blackAlpha'
-                                variant='solid'
-                                bgColor='black'
-                                leftIcon={<Icon w='5' h='5' as={IoGitBranch} />}
-                                justifyContent='flex-start'
-                                gridColumn='span 2'
-                            >
-                                Расставить
-                            </Button>*/}
                         </HStack>
-                    </ChakraBox>
-                    <ChakraBox
+                    </FramerBox>
+                    <FramerBox
                         w='100%'
-                        variants={item}
+                        variants={itemVariants}
                     >
                         <MenuList
                             name='Исполнители'
                             active={query.user.length}
                             clear={clearUser}
-                            variants={item}
+                            variants={itemVariants}
                         >
                             {users.map((user, index) => <UserItem id={user.id} name={user.name} img={user.img} isMe={user.isMe} key={index} />)}
                         </MenuList>
-                    </ChakraBox>
+                    </FramerBox>
 
-                    <ChakraBox
+                    <FramerBox
                         w='100%'
-                        variants={item}
+                        variants={itemVariants}
                     >
                         <MenuList
                             name='Тэги'
@@ -224,11 +182,11 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                         >
                             {tags.map((tag, index) => <TagItem id={tag.id} name={tag.name} color={tag.color} key={index} />)}
                         </MenuList>
-                    </ChakraBox>
+                    </FramerBox>
 
-                    <ChakraBox
+                    <FramerBox
                         w='100%'
-                        variants={item}
+                        variants={itemVariants}
                     >
                         <MenuList
                             name='Состояния'
@@ -237,7 +195,7 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                         >
                             {states.map((state, index) => <StateItem id={state.id} name={state.name} key={index} />)}
                         </MenuList>
-                    </ChakraBox>
+                    </FramerBox>
                 </VStack>
             </Box>
             <Flex
@@ -247,21 +205,21 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                 alignItems='center'
                 zIndex='1000'
             >
-                <ChakraBox
+                <FramerBox
                     opacity={1}
                     initial={{
                         opacity: 1
                     }}
                     animate={{
-                        opacity: ready ? 1 : 0.5,
+                        opacity: isReady ? 1 : 0.5,
                     }}
                     transition={{
                         duration: 0.2
                     }}
                 >
-                    <ChakraBox
+                    <FramerBox
                         whileHover={{ scale: 1.1 }}
-                        onClick={ready && setOpen.toggle}
+                        onClick={isReady ? setOpen.toggle : undefined}
                         h='40px'
 
                         initial={{
@@ -276,12 +234,12 @@ function BoardStat({ title, users, tags, states, handle, onChange, type }) {
                             w='10'
                             h='10'
                             as={MdOutlineKeyboardArrowLeft}
-                            cursor={ready && 'pointer'}
+                            cursor={isReady && 'pointer'}
                         />
-                    </ChakraBox>
-                </ChakraBox>
+                    </FramerBox>
+                </FramerBox>
             </Flex>
-        </ChakraBox >
+        </FramerBox >
     );
 }
 

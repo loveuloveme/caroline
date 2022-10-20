@@ -1,14 +1,14 @@
 import { VStack } from '@chakra-ui/react';
 import { Handle, Position } from 'react-flow-renderer';
 
-function TaskNodeHandle({ type = 'target', position, count }){
+function TaskNodeHandle({ type = 'target', position, count }) {
     const size = 10;
     const style = {};
 
     style[Position.Left] = {};
 
     style[Position.Left].handle = {
-        width: `${size/2}px`,
+        width: `${size / 2}px`,
         height: `${size}px`,
         borderRadius: '0 100% 100% 0 / 0 50% 50% 0'
     };
@@ -23,7 +23,7 @@ function TaskNodeHandle({ type = 'target', position, count }){
     style[Position.Right] = {};
 
     style[Position.Right].handle = {
-        width: `${size/2}px`,
+        width: `${size / 2}px`,
         height: `${size}px`,
         borderRadius: '100% 0 0 100% / 50% 0 0 50%',
     };
@@ -53,10 +53,11 @@ function TaskNodeHandle({ type = 'target', position, count }){
                         type={type}
                         position={position}
                         id={`${index}`}
+                        key={index}
                     />
                 );
             })}
-            
+
         </VStack>
 
 

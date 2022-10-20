@@ -1,6 +1,6 @@
 import { Tag } from '@chakra-ui/react';
 
-function TaskNodeTag({ name = 'тэг', color }) {
+function TaskNodeTag({ name = 'tag', color }) {
     return (
         <Tag
             size='md'

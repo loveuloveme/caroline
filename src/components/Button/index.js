@@ -1,34 +1,40 @@
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
-const styles = {
-    gray: {
-        container: {
-            bgColor: '#e2e2e2',
-            _hover: { bg: '#ebedf0' },
-            _active: {
-                bg: '#dddfe2'
-            }
-        },
-        text: {
-            color: 'black'
-        },
 
-    },
-    blue: {
-        container: {
-            bgColor: 'apple.blue.dark',
-            _hover: { bg: 'apple.blue.light' },
-            _active: {
-                bg: 'apple.blue.dark'
-            }
-        },
-        text: {
-            color: 'white'
+export const VARIANTS = {
+    GRAY: 'gray',
+    BLUE: 'blue'
+};
+
+const styles = {};
+
+styles[VARIANTS.GRAY] = {
+    container: {
+        bgColor: '#e2e2e2',
+        _hover: { bg: '#ebedf0' },
+        _active: {
+            bg: '#dddfe2'
         }
     },
-}
+    text: {
+        color: 'black'
+    }
+};
 
-function Button({ children, variant = 'gray', ...rest }) {
+styles[VARIANTS.BLUE] = {
+    container: {
+        bgColor: 'apple.blue.dark',
+        _hover: { bg: 'apple.blue.light' },
+        _active: {
+            bg: 'apple.blue.dark'
+        }
+    },
+    text: {
+        color: 'white'
+    }
+};
+
+function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
     return (
         <Box
             as='button'

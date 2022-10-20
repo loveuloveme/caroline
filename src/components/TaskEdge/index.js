@@ -1,11 +1,10 @@
 import React from 'react'
-import { useNodes, BezierEdge, getBezierPath } from 'react-flow-renderer'
-import { getSmartEdge, pathfindingAStarNoDiagonal } from '@tisoap/react-flow-smart-edge'
-import { ChakraPath } from '../ChakraBox';
+import { useNodes, getBezierPath } from 'react-flow-renderer'
+import { pathfindingAStarNoDiagonal } from '@tisoap/react-flow-smart-edge'
+import { FramerPath } from '../FramerElement';
 
 function TaskEdge(props) {
     const {
-        id,
         sourcePosition,
         targetPosition,
         sourceX,
@@ -17,7 +16,7 @@ function TaskEdge(props) {
         markerEnd
     } = props;
 
-    const nodes = useNodes()
+    const nodes = useNodes();
 
     const getSmartEdgeResponse = getBezierPath({
         sourcePosition,
@@ -36,7 +35,7 @@ function TaskEdge(props) {
 
     return (
         <>
-            <ChakraPath
+            <FramerPath
                 style={style}
                 className='react-flow__edge-path'
                 d={getSmartEdgeResponse}
@@ -56,7 +55,6 @@ function TaskEdge(props) {
                     type: 'spring',
                     bounce: '0.20'
                 }}
-
             />
         </>
     )

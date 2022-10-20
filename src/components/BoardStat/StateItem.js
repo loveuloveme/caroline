@@ -9,8 +9,6 @@ function StateItem({ id, name }) {
 
     return (
         <HStack
-            onClick={() => toggleState(id)}
-
             w='full'
             spacing='3'
             bgColor={selected ? 'gray.200' : 'white'}
@@ -19,13 +17,24 @@ function StateItem({ id, name }) {
             borderRadius='md'
             cursor='pointer'
             transition='all 0.1s ease-in-out'
-
             _hover={{
-                bgColor: selected ? `` : `gray.100`
+                bgColor: selected ? `` : 'gray.100'
             }}
+
+            onClick={() => toggleState(id)}
         >
-            <Box w='14px' h='14px' borderRadius='full' bgColor='apple.black'></Box>
-            <Text fontSize='md' fontWeight='700' color='apple.black'>{name}</Text>
+            <Box
+                w='14px' h='14px'
+                borderRadius='full'
+                bgColor='apple.black'
+            ></Box>
+            <Text
+                fontSize='md'
+                fontWeight='700'
+                color='apple.black'
+            >
+                {name}
+            </Text>
         </HStack>
     );
 }

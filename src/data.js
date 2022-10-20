@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default [{
     id: '1',
     title: 'Почему Каролина?',
@@ -163,43 +164,35 @@ export default [{
         id: 4,
         name: 'Провалено'
     }]
-},
-{
+}, {
     id: '2',
     title: 'Я мразь',
     type: 'trello',
-},
-{
+}, {
     id: '3',
     title: 'Не имей 5 коллег, а имей 600 сектантов',
     type: 'trello',
-}
-    , {
+}, {
     id: '4',
     title: 'Папикянио',
     type: 'trello',
-}
-    , {
+}, {
     id: '5',
     title: 'Юрченко Влад',
     type: 'jira',
-}
-    , {
+}, {
     id: '6',
     title: 'Женщина-Халк: Авокадо',
     type: 'trello',
-}
-    , {
+}, {
     id: '7',
     title: 'Рожновский Иван',
     type: 'trello',
-}
-    , {
+}, {
     id: '8',
     title: 'Я рот переворачивал информатики',
     type: 'trello',
-}
-    , {
+}, {
     id: '9',
     title: 'Keep bouncing',
     type: 'trello',

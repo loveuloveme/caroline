@@ -1,7 +1,7 @@
 import { Text, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-function Logotype({ size = 'xl', color = '#285dec', text = 'CAROLINE' }) {
+function Logotype({ color = '#285dec', ...rest }) {
     return (
         <Link to="/">
             <Flex
@@ -12,12 +12,13 @@ function Logotype({ size = 'xl', color = '#285dec', text = 'CAROLINE' }) {
             >
 
                 <Text
-                    fontSize={size}
                     fontWeight='bold'
                     zIndex='10'
                     color={color}
+
+                    {...rest}
                 >
-                    {text}
+                    CAROLINE
                 </Text>
             </Flex>
         </Link>

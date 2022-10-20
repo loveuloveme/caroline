@@ -1,14 +1,11 @@
-import { Box, Text, Flex, Image, useBoolean } from "@chakra-ui/react";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-import InnerText from "./InnerText";
+import { Box, Text, Flex, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-import trelloImg from './assets/trello.png';
-import jiraImg from './assets/jira.png';
-import ChakraBox from "../ChakraBox";
+import trelloImg from '../../assets/trello.png';
+import jiraImg from '../../assets/jira.png';
+import ChakraBox from "../FramerElement";
 
 function BoardItem({ name, type }) {
-    const [hover, setHover] = useBoolean(false);
-
     return (
         <Link to='/board'>
             <ChakraBox
@@ -19,30 +16,16 @@ function BoardItem({ name, type }) {
                 px='5'
                 pt='5'
                 pb='5'
-
-                // h='100%'
                 h='200px'
-
                 alignItems='flex-end'
                 justifyContent='space-between'
                 borderRadius='lg'
                 cursor='pointer'
                 overflow='hidden'
-
-                // shadow='sm'
-
-                // transition='all 0.2s'
-                // outline='2px solid'
-                // outlineColor={hover ? '#e2e2e2' : 'white'}
-
                 userSelect='none'
-
-            // onMouseEnter={setHover.on}
-            // onMouseLeave={setHover.off}
             >
                 <Flex
                     direction='column'
-                    // alignItems='center'
                     position='relative'
                     justifyContent='space-between'
                     h='100%'
@@ -89,7 +72,6 @@ function BoardItem({ name, type }) {
                             {name}
                         </Text>
                     </Box>
-                    {/* <InnerText mt='3' active={hover} /> */}
                 </Flex>
             </ChakraBox>
         </Link>

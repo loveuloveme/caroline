@@ -1,8 +1,8 @@
-import { Flex, Heading, HStack, Image, Text } from '@chakra-ui/react';
+import { Flex, Heading, HStack, Image, Text, Code } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { Position } from 'react-flow-renderer';
 import { useBoard } from "../../pages/Board/context";
-import ChakraBox from '../ChakraBox';
+import ChakraBox from '../FramerElement';
 
 import TaskNodeHandle from './TaskNodeHandle';
 import TaskNodeTag from './TaskNodeTag';
@@ -10,7 +10,7 @@ import TaskNodeUser from './TaskNodeUser';
 
 function TaskNode({ data }) {
     const {
-        id, title, users, tags, description,
+        title, users, tags, description,
         state, sourceCount, targetCount, image
     } = data;
 
@@ -20,7 +20,7 @@ function TaskNode({ data }) {
         return (query.user.length || query.tag.length || query.state.length)
             && query.user.every(elem => users.map(item => item.id).includes(elem))
             && query.tag.every(elem => tags.map(item => item.id).includes(elem))
-            && (!query.state.length || query.state.some(elem => state.id == elem));
+            && (!query.state.length || query.state.some(elem => state.id === elem));
     }, [query]);
 
     return (
@@ -32,7 +32,6 @@ function TaskNode({ data }) {
             transition={{
                 duration: 0.5,
                 delay: 1.5
-                // delay: 0.1 * parseInt(id)
             }}
             shadow='sm'
         >
@@ -42,7 +41,6 @@ function TaskNode({ data }) {
                 w='350px'
                 px='4'
                 py='4'
-                // shadow='xs'
                 borderRadius='md'
                 outline='2px solid'
                 outlineColor={selected ? '#000000' : 'transparent'}
@@ -51,16 +49,17 @@ function TaskNode({ data }) {
                 <TaskNodeHandle type='target' position={Position.Left} count={targetCount} />
                 <TaskNodeHandle type='source' position={Position.Right} count={sourceCount} />
 
-                <Text
+                <Code
                     color='apple.black'
                     fontSize='sm'
                     mb='1'
                     textTransform='uppercase'
                     fontWeight='600'
-                    fontFamily='"Roboto Mono", monospace'
+                    bgColor='transparent'
+                    p='0'
                 >
                     {state.name}
-                </Text>
+                </Code>
                 <Heading
                     letterSpacing='tight'
                     fontSize='2xl'
