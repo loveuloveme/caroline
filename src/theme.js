@@ -8,6 +8,10 @@ const theme = extendTheme({
                 light: 'rgb(10, 132, 255)',
                 dark: 'rgb(0, 122, 255)'
             }
+        },
+        body: '#f5f5f7',
+        caroline: {
+            blue: '#285dec'
         }
     },
     fonts: {

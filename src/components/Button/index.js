@@ -3,7 +3,8 @@ import { Box, Text } from "@chakra-ui/react";
 
 export const VARIANTS = {
     GRAY: 'gray',
-    BLUE: 'blue'
+    BLUE: 'blue',
+    BLACK: 'black'
 };
 
 const styles = {};
@@ -27,6 +28,19 @@ styles[VARIANTS.BLUE] = {
         _hover: { bg: 'apple.blue.light' },
         _active: {
             bg: 'apple.blue.dark'
+        }
+    },
+    text: {
+        color: 'white'
+    }
+};
+
+styles[VARIANTS.BLACK] = {
+    container: {
+        bgColor: 'apple.black',
+        _hover: { bg: 'rgb(32 32 32)' },
+        _active: {
+            bg: '#3f3f3f'
         }
     },
     text: {

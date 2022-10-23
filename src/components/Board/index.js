@@ -4,7 +4,7 @@ import ReactFlow, { MiniMap } from "react-flow-renderer";
 import TaskNode from "../TaskNode";
 import TaskEdge from "../TaskEdge";
 
-function Board({ nodes, edges }) {
+function Board({ nodes, edges, miniMap = true, ...rest }) {
     const nodeTypes = useMemo(() => ({ task: TaskNode }), []);
     const edgeTypes = useMemo(() => ({ custom: TaskEdge }), []);
 
@@ -12,7 +12,6 @@ function Board({ nodes, edges }) {
         <Box
             w='100%'
             h='100%'
-            bgColor='#f5f5f7'
             flex='1'
         >
             <ReactFlow
@@ -21,8 +20,10 @@ function Board({ nodes, edges }) {
                 defaultNodes={nodes}
                 defaultEdges={edges}
                 fitView
+
+                {...rest}
             >
-                <MiniMap />
+                {miniMap && <MiniMap />}
             </ReactFlow>
         </Box >
     );

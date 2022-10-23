@@ -43,7 +43,8 @@ function TaskEdge(props) {
                 markerStart={markerStart}
                 strokeDasharray='100%'
                 strokeDashoffset='100%'
-                strokeWidth='5'
+                strokeWidth='8'
+                stroke='#000000'
 
                 animate={{
                     strokeDashoffset: ['100%', '0%']
