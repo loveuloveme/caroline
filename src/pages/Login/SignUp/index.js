@@ -10,6 +10,7 @@ import { registerUser } from '../../../store/user/thunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignUp() {
+    const { loading } = useSelector((state) => state.user);
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -81,7 +82,7 @@ export default function SignUp() {
                 variant='black'
                 mt='60px'
                 onClick={formik.handleSubmit}
-                disabled={formik.errors.email || formik.errors.username || formik.errors.password || formik.errors.repassword}
+                disabled={formik.errors.email || formik.errors.username || formik.errors.password || formik.errors.repassword || loading}
             >
                 Зарегистрироваться
             </Button>
