@@ -5,10 +5,14 @@ const FramerBox = chakra(motion.div, {
     shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
+const FramerImage = chakra(motion.img, {
+    shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
+});
+
 const FramerPath = chakra(motion.path, {
     shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
 export default FramerBox;
 
-export { FramerBox, FramerPath };
+export { FramerBox, FramerPath, FramerImage };

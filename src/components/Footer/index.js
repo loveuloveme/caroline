@@ -59,7 +59,7 @@ function Footer() {
                         >
                             <Logotype color='white' fontSize='2xl' />
                             <CloseIcon w='4' h='4' />
-                            <Text fontSize='2xl'>HEHE</Text>
+                            <Text fontSize='2xl'>MCKAREVICH</Text>
                         </HStack>
                     </ChakraBox>
                 </Flex>

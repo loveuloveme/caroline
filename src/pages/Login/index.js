@@ -1,65 +1,37 @@
-import {
-    Flex,
-    Box,
-    Stack,
-    Link,
-    Heading,
-    Text,
-    Container,
-    VStack,
-    Icon,
-} from '@chakra-ui/react';
-import { MdEmail, MdPassword } from 'react-icons/md';
-import Button from '../../components/Button';
-import FramerBox from '../../components/FramerElement';
-
+import { Flex, Box, Stack, Link, Heading, Text, Container, Image, useBoolean } from '@chakra-ui/react';
+import { TypeAnimation } from 'react-type-animation';
+import FramerBox, { FramerImage } from '../../components/FramerElement';
 import Logotype from '../../components/Logotype';
-import TextInput from './TextInput';
+// import photo from './photo.jpg';
+// import photo2 from './photo2.jpg';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
-import Board from '../../components/Board';
-
-import boardData from './boardData';
-import { useEffect, useState } from 'react';
-import { parseEdges, parseNodes } from '../../helpers';
-import BoardProvider from '../Board/context';
+import { useAnimation } from "framer-motion"
+import { pageVariants, pageTransition } from '../anims';
 
 
-const pageVariants = {
-    initial: {
-        opacity: 0,
-    },
-    in: {
-        opacity: 1,
-        transition: {
-            when: 'beforeChildren',
-            staggerChildren: 0.1,
-        },
-    },
-    out: {
-        opacity: 0,
-    },
-};
+export default function Login() {
+    const controls = useAnimation();
 
-const pageTransition = {
-    type: "tween",
-    ease: "anticipate",
-    duration: 1
-};
+    const [isSignUp, setSignUp] = useBoolean(true);
+    const [isSignUpComponent, setSignUpComponent] = useBoolean(true);
 
-export default function SimpleCard() {
+    const changeLayout = () => {
+        setSignUp.toggle();
 
-    const [previewData, setPreviewData] = useState({
-        nodes: [],
-        edges: []
-    });
+        (async () => {
+            await controls.start('hidden');
+            setSignUpComponent.toggle();
 
-    useEffect(() => {
-        setPreviewData(prev => ({
-            ...prev,
-            nodes: parseNodes(boardData).map(nds => ({ ...nds, draggable: false, selectable: false })),
-            edges: parseEdges(boardData)
-        }));
-    }, []);
+            if (isSignUp) {
+                await controls.start('visibleRight');
+            } else {
+                await controls.start('visibleLeft');
+            }
+
+        })();
+    };
 
     return (
         <FramerBox
@@ -87,89 +59,165 @@ export default function SimpleCard() {
                 alignItems='stretch'
                 px='0'
             >
-                <Box
+                <Flex
                     flex='1'
-                    alignItems='flex-start'
+                    alignItems='flex-end'
                     position='relative'
                     overflow='hidden'
+                    bgColor='#030303'
+                    p='10'
                 >
-                    <BoardProvider>
-                        <Board
-                            nodes={previewData.nodes}
-                            edges={previewData.edges}
-                            miniMap={false}
-                            zoomOnScroll={false}
-                            panOnScroll={false}
-                            panOnDrag={false}
+                    <Box
+                        color='white'
+                        zIndex='10'
+                    >
+                        <Text fontWeight='bold' fontSize='9xl'>
+                            <TypeAnimation
+                                sequence={[
+                                    500,
+                                    'Caroline',
+                                    16000,
+                                    'Disorder',
+                                    50000
+                                ]}
+                                repeat={Infinity}
+                                wrapper="span"
+                                cursor={false}
+                            />
+                        </Text>
+                        <Text fontSize='2xl'>
+                            <TypeAnimation
+                                sequence={[
+                                    5000,
+                                    'The name Caroline is of French origin and means "strong." It is the feminine version of Charles, which means "free man."',
+                                    5000,
+                                    'dɪsɔːʳdəʳ',
+                                    2000,
+                                    'dɪsɔːʳdəʳ, a disorder is a problem or illness which affects someone\'s mind or body.',
+                                    5000,
+                                    'is a state of being untidy, badly prepared, or badly organized.',
+                                    5000,
+                                    'is violence or rioting in public.'
+                                ]}
+                                repeat={Infinity}
+                                wrapper="span"
+                                cursor={true}
+                            />
+                        </Text>
+                    </Box>
+                    <Box
+                        position='absolute'
+                        w='75%'
+                        h='75%'
+                        top='12.5%'
+                        left='12.5%'
+                        zIndex='0'
+                    >
+                        <FramerImage
+                            animate={{
+                                x: [-50, 0],
+                                opacity: [0, 1]
+                            }}
+                            position='absolute'
+                            w='60%'
+                            h='90%'
+                            objectFit='contain'
+                            src={require('../../assets/photos/crying.jpg')}
                         />
-                    </BoardProvider>
-                </Box>
+                        <FramerImage
+                            animate={{
+                                opacity: [0, 1]
+                            }}
+                            transition={{
+                                delay: 1
+                            }}
+                            bottom='0'
+                            right='0'
+                            position='absolute'
+                            w='50%'
+                            h='80%'
+                            objectFit='contain'
+                            src={require('../../assets/photos/crying_2.jpg')}
+                        />
+                    </Box>
+                </Flex>
                 <Flex
                     direction='column'
-                    w='25%'
                     justifyContent='center'
                     zIndex='10'
                     bgColor='white'
                     backdropFilter='blur(5px)'
                     alignItems='center'
-                    minW='450px'
+                    minW='35%'
+                    position='relative'
+                    overflow='hidden'
+                    h='100vh'
+                    overflowY='auto'
                 >
                     <Flex
-                        p='10%'
+                        p='50px 50px'
                         w='100%'
                         display='flex'
                         pt='8'
                     >
                         <Logotype fontSize='3xl' />
                     </Flex>
+                    <FramerBox
+                        left='0%'
+                        position='absolute'
+                        h='100%'
+                        w='100%'
+                        bgColor='caroline.blue'
+                        zIndex='3'
+
+                        variants={{
+                            hidden: {
+                                left: '0%',
+                                transition: {
+                                    duration: 0.5,
+                                }
+                            },
+                            visibleRight: {
+                                left: '100%',
+                                transition: {
+                                    duration: 0.5,
+                                }
+                            },
+                            visibleLeft: {
+                                left: '-100%',
+                                transition: {
+                                    duration: 0.5,
+                                }
+                            }
+                        }}
+
+                        initial='visibleLeft'
+
+                        animate={controls}
+                    >
+                    </FramerBox>
                     <Flex
                         direction='column'
                         justifyContent='center'
                         flex='1'
-                        maxW='500px'
-                        w='80%'
+                        px='50px'
+                        w='100%'
                     >
-                        <VStack
-                            mb='55px'
-                            spacing='3'
-                            alignItems='flex-start'
-                        >
-                            <Heading
-                                fontSize='7xl'
-                                color='black'
-                                ml='-5px'
-                            >
-                                Вход
-                            </Heading>
-                            <Text color='#9d9d9d'>Как и говорилось, сейчас без этого никак</Text>
-                        </VStack>
-
-                        <Stack
-                            w='100%' spacing='5'
-                        >
-                            <TextInput type='email' placeholder='Email' icon={<Icon w='5' h='5' as={MdEmail} />} />
-                            <TextInput type='password' placeholder='Пароль' icon={<Icon w='5' h='5' as={MdPassword} />} />
-                        </Stack>
-                        <Button
-                            variant='black'
-                            mt='60px'
-                        >
-                            Войти
-                        </Button>
+                        {isSignUpComponent ? <SignUp /> : <SignIn />}
                     </Flex>
                     <Flex
                         w='100%'
-                        h='60px'
-                        bgColor='caroline.blue'
+                        py='50px'
                         justifyContent='center'
                         alignItems='center'
                     >
                         <Link
-                            color='white'
+                            color='caroline.blue'
                             fontWeight='600'
-                            fontSize='sm'
+                            fontSize='lg'
+                            onClick={changeLayout}
                         >
-                            Нет аккаунта? Создать.
+                            {isSignUpComponent ? 'Есть аккаунт? Войти.' : 'Нет аккаунта? Создать.'}
                         </Link>
                     </Flex>
                 </Flex>

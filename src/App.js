@@ -13,20 +13,24 @@ import Home from "./pages/Home";
 import Board from './pages/Board';
 import Login from "./pages/Login";
 
+import store from './store';
+import { Provider } from 'react-redux';
 
 function App() {
     const location = useLocation();
 
     return (
-        <Box>
-            <AnimatePresence exitBeforeEnter>
-                <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/board" element={<Board />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
-            </AnimatePresence>
-        </Box>
+        <Provider store={store}>
+            <Box>
+                <AnimatePresence exitBeforeEnter>
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/board" element={<Board />} />
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                </AnimatePresence>
+            </Box>
+        </Provider>
     );
 }
 

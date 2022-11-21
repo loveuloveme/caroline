@@ -24,7 +24,7 @@ styles[VARIANTS.GRAY] = {
 
 styles[VARIANTS.BLUE] = {
     container: {
-        bgColor: 'apple.blue.dark',
+        bgColor: 'caroline.blue',
         _hover: { bg: 'apple.blue.light' },
         _active: {
             bg: 'apple.blue.dark'
@@ -71,6 +71,10 @@ function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
 
             {...styles[variant].container}
             {...rest}
+            _disabled={{
+                cursor: 'not-allowed',
+                opacity: 0.7
+            }}
         // _focus={{
         //     boxShadow:
         //         '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
