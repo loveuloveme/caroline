@@ -20,6 +20,21 @@ export const createTokenUser = (email, password) => {
     });
 };
 
+export const loginTokenUser = (email, password) => {
+    return http.post('/auth/signin', {
+        formFields: [
+            {
+                id: 'email',
+                value: email
+            },
+            {
+                id: 'password',
+                value: password
+            }
+        ]
+    });
+};
+
 export const createUser = (userId, email, username, fullName) => {
     return http.post('/users', { id: userId, email, username, fullName })
 };
@@ -28,10 +43,14 @@ export const getUserList = () => {
     return http.get('/users');
 };
 
-createTokenUser('yakidansel2@gmail.com', 'yakidan1A@').then(console.log)
+export const getUser = id => {
+    return http.get(`/users/${id}`);
+};
 
 export default {
     createTokenUser,
     createUser,
-    getUserList
+    getUserList,
+    getUser,
+    loginTokenUser
 };

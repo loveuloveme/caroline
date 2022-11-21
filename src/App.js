@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 
@@ -13,17 +13,21 @@ import Home from "./pages/Home";
 import Board from './pages/Board';
 import Login from "./pages/Login";
 
+import Auth from "./components/Auth";
 import store from './store';
 import { Provider } from 'react-redux';
+
+import history from "./history";
 
 function App() {
     const location = useLocation();
 
     return (
         <Provider store={store}>
+            <Auth />
             <Box>
                 <AnimatePresence exitBeforeEnter>
-                    <Routes location={location} key={location.pathname}>
+                    <Routes history={history} location={location} key={location.pathname}>
                         <Route path="/" element={<Home />} />
                         <Route path="/board" element={<Board />} />
                         <Route path="/login" element={<Login />} />

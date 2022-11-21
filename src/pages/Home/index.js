@@ -7,24 +7,8 @@ import ChakraBox from "../../components/FramerElement";
 import Footer from '../../components/Footer';
 
 import bgImg from '../../assets/taskPink.png';
-
-const pageVariants = {
-    initial: {
-        opacity: 0,
-    },
-    in: {
-        opacity: 1,
-    },
-    out: {
-        opacity: 0,
-    },
-};
-
-const pageTransition = {
-    type: "tween",
-    ease: "anticipate",
-    duration: 1
-};
+import { useSelector } from "react-redux";
+import { pageTransition, pageVariants } from "../anims";
 
 function Home() {
     return (

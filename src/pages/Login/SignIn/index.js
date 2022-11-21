@@ -4,18 +4,24 @@ import { MdEmail, MdPassword } from 'react-icons/md';
 import { FaUser } from 'react-icons/fa';
 import Button from '../../../components/Button';
 import FramerBox from '../../../components/FramerElement';
-
+import ValidationSchema from '../ValidationSchema';
 import { useFormik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../../store/user/thunk';
 
 export default function SignIn() {
+    const dispatch = useDispatch();
+
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: ''
+            password: '',
+            username: '123123123'
         },
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async values => {
+            dispatch(loginUser(values))
         },
+        validationSchema: ValidationSchema
     });
 
     return (
@@ -55,6 +61,9 @@ export default function SignIn() {
             <Button
                 variant='blue'
                 mt='60px'
+                type='button'
+                onClick={formik.handleSubmit}
+                disabled={formik.errors.email || formik.errors.password}
             >
                 Войти
             </Button>

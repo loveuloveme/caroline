@@ -75,10 +75,10 @@ export default function Login() {
                             <TypeAnimation
                                 sequence={[
                                     500,
+                                    'Каролина',
+                                    2500,
                                     'Caroline',
-                                    16000,
-                                    'Disorder',
-                                    50000
+                                    20000
                                 ]}
                                 repeat={Infinity}
                                 wrapper="span"
@@ -86,23 +86,7 @@ export default function Login() {
                             />
                         </Text>
                         <Text fontSize='2xl'>
-                            <TypeAnimation
-                                sequence={[
-                                    5000,
-                                    'The name Caroline is of French origin and means "strong." It is the feminine version of Charles, which means "free man."',
-                                    5000,
-                                    'dɪsɔːʳdəʳ',
-                                    2000,
-                                    'dɪsɔːʳdəʳ, a disorder is a problem or illness which affects someone\'s mind or body.',
-                                    5000,
-                                    'is a state of being untidy, badly prepared, or badly organized.',
-                                    5000,
-                                    'is violence or rioting in public.'
-                                ]}
-                                repeat={Infinity}
-                                wrapper="span"
-                                cursor={true}
-                            />
+                            The name Caroline is of French origin and means "strong." It is the feminine version of Charles, which means "free man."
                         </Text>
                     </Box>
                     <Box
