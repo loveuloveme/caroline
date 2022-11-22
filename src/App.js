@@ -25,7 +25,7 @@ function App() {
     return (
         <Provider store={store}>
             <Auth />
-            <Box>
+            <Box h='100%'>
                 <AnimatePresence exitBeforeEnter>
                     <Routes history={history} location={location} key={location.pathname}>
                         <Route path="/" element={<Home />} />
