@@ -27,22 +27,6 @@ export default function SignIn() {
 
     return (
         <>
-            <VStack
-                mb='40px'
-                spacing='1'
-                alignItems='flex-start'
-            >
-                <Heading
-                    fontSize='7xl'
-                    color='black'
-                    ml='-5px'
-                    textTransform='uppercase'
-                >
-                    Login
-                </Heading>
-                {/* <Text color='#9d9d9d'>Как и говорилось, сейчас без этого никак</Text> */}
-            </VStack>
-
             <Stack
                 w='100%' spacing='5'
             >
@@ -51,6 +35,7 @@ export default function SignIn() {
                     onChange={formik.handleChange}
                     value={formik.values.email}
                     error={formik.errors.email}
+                    disabled={loading}
                 />
                 <TextInput
                     name='password' type='password' placeholder='Пароль' icon={<Icon w='5' h='5' as={MdPassword} />}

@@ -17,10 +17,10 @@ function Auth() {
 
     useEffect(() => {
         if (userInfo == null) {
-            navigate('/login');
+            //navigate('/login');
         } else {
             if (redirectLogin.some(path => path === location.pathname)) {
-                navigate('/');
+                //navigate('/');
             }
         }
     }, [userId, userInfo]);

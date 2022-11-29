@@ -1,15 +1,17 @@
+import { Flex, Box } from '@chakra-ui/react';
 import { AnimatePresence } from 'framer-motion';
-import { FramerImage } from '../../components/FramerElement';
+import FramerBox, { FramerImage } from '../../components/FramerElement';
 
-function Image({ ...rest }) {
+function Image({ src, ...rest }) {
     return (
-        <FramerImage
-            position='absolute'
+        <FramerBox
+            display='flex'
+            justifyContent='flex-end'
             top='0'
             right='0'
+            position='absolute'
+            w='100%'
             h='100%'
-            objectFit='contain'
-
 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -19,17 +21,28 @@ function Image({ ...rest }) {
             }}
 
             {...rest}
-        />
+        >
+            <Box
+                h='100%' zIndex='8'
+                flex='1'
+                bg='linear-gradient(90deg, transparent, rgb(0, 0,0, 0.6) 50%, black 100%)'
+            ></Box>
+            <FramerImage
+                h='100%'
+                objectFit='contain'
+                src={src}
+            />
+        </FramerBox>
     );
 }
 
-function LoginImage({ isSignUp }) {
+function LoginImage({ isSignUp, ...rest }) {
     return (
         <AnimatePresence>
             {isSignUp ?
-                <Image key='signUp' src={require('../../assets/photos/loginsignup.jpg')} />
+                <Image key='signUp' src={require('../../assets/photos/login_signup.jpg')} {...rest} />
                 :
-                <Image key='signIn' src={require('../../assets/photos/loginsignin.jpg')} />
+                <Image key='signIn' src={require('../../assets/photos/login_signin.jpg')} {...rest} />
             }
         </AnimatePresence>
     );

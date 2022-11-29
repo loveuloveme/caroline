@@ -4,10 +4,10 @@ import { MdEmail, MdPassword } from 'react-icons/md';
 import { FaUser } from 'react-icons/fa';
 import Button from '../../../components/Button';
 import { useFormik } from 'formik';
-import CarolineService from '../../../services/CarolineService';
 import ValidationSchema from '../ValidationSchema';
 import { registerUser } from '../../../store/user/thunk';
 import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '../../../store/user/slice';
 
 export default function SignUp() {
     const { loading } = useSelector((state) => state.user);
@@ -17,6 +17,7 @@ export default function SignUp() {
         initialValues: {
             email: '',
             username: '',
+            fullName: '',
             password: '',
             repassword: ''
         },
@@ -28,22 +29,6 @@ export default function SignUp() {
 
     return (
         <>
-            <VStack
-                mb='40px'
-                spacing='1'
-                alignItems='flex-start'
-            >
-                <Heading
-                    fontSize='7xl'
-                    color='black'
-                    ml='-5px'
-                    textTransform='uppercase'
-                >
-                    Register
-                </Heading>
-                {/* <Text color='#9d9d9d'>Стандратная схема</Text> */}
-            </VStack>
-
             <Stack
                 w='100%' spacing='5'
             >
@@ -55,6 +40,8 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     value={formik.values.email}
                     error={formik.errors.email}
+
+                    disabled={loading}
                 />
                 <TextInput
                     type='text' placeholder='Имя пользователя' icon={<Icon w='5' h='5' as={FaUser} />}
@@ -62,6 +49,8 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     value={formik.values.username}
                     error={formik.errors.username}
+
+                    disabled={loading}
                 />
                 <TextInput
                     type='password' placeholder='Пароль' icon={<Icon w='5' h='5' as={MdPassword} />}
@@ -69,6 +58,8 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     error={formik.errors.password}
+
+                    disabled={loading}
                 />
                 <TextInput
                     type='password' placeholder='Повторите пароль' icon={<Icon w='5' h='5' as={MdPassword} />}
@@ -76,6 +67,8 @@ export default function SignUp() {
                     onChange={formik.handleChange}
                     value={formik.values.repassword}
                     error={formik.errors.repassword}
+
+                    disabled={loading}
                 />
             </Stack>
             <Button

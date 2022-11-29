@@ -16,13 +16,10 @@ export const getMe = createAsyncThunk('user/me', async (_, { rejectWithValue }) 
 
 export const registerUser = createAsyncThunk('user/register', async ({ email, password, username }, { rejectWithValue }) => {
     try {
-        const tokenUser = await CarolineService.createTokenUser(email, password);
-        if (tokenUser.data.status !== 'OK') throw new Error(tokenUser.data.status);
+        const user = await CarolineService.createUser(email, password, username);
+        if (user.data.status !== 'OK') throw user.data;
 
-        const user = await CarolineService.createUser(tokenUser.data.user.id, email, username, username);
-
-        localStorage.setItem('user-id', user.data.id)
-        return user.data;
+        return user.data.user;
     } catch (error) {
         console.log(error);
         return rejectWithValue(error)

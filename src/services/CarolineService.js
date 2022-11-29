@@ -5,7 +5,7 @@ const http = axios.create({
     withCredentials: true
 });
 
-export const createTokenUser = (email, password) => {
+export const createUser = (email, password, username) => {
     return http.post('/auth/signup', {
         formFields: [
             {
@@ -15,6 +15,14 @@ export const createTokenUser = (email, password) => {
             {
                 id: 'password',
                 value: password
+            },
+            {
+                id: 'username',
+                value: username
+            },
+            {
+                id: 'fullname',
+                value: 'John Doe'
             }
         ]
     });
@@ -35,9 +43,6 @@ export const loginTokenUser = (email, password) => {
     });
 };
 
-export const createUser = (userId, email, username, fullName) => {
-    return http.post('/users', { id: userId, email, username, fullName })
-};
 
 export const getUserList = () => {
     return http.get('/users');
@@ -48,7 +53,6 @@ export const getUser = id => {
 };
 
 export default {
-    createTokenUser,
     createUser,
     getUserList,
     getUser,

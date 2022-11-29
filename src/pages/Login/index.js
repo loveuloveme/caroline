@@ -1,4 +1,4 @@
-import { Flex, Box, Stack, Link, Heading, Text, Container, Image, useBoolean, HStack } from '@chakra-ui/react';
+import { Flex, Box, Stack, Link, Heading, Text, Container, Image, useBoolean, VStack } from '@chakra-ui/react';
 import { TypeAnimation } from 'react-type-animation';
 import FramerBox, { FramerImage, FramerText } from '../../components/FramerElement';
 import Logotype from '../../components/Logotype';
@@ -12,13 +12,19 @@ import { pageVariants, pageTransition } from '../anims';
 import { useState } from 'react';
 import LoginImage from './LoginImage';
 import LoginBackground from './LoginBackground';
+import { useSelector } from 'react-redux';
 
+import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+} from '@chakra-ui/react'
 
 export default function Login() {
+    const { loading, success, error } = useSelector((state) => state.user);
+
     const controls = useAnimation();
-
-    const [isContentHover, setContentHover] = useState(false);
-
     const [isSignUp, setSignUp] = useBoolean(true);
     const [isSignUpComponent, setSignUpComponent] = useBoolean(true);
 
@@ -38,6 +44,7 @@ export default function Login() {
         })();
     };
 
+    console.log(error);
 
     return (
         <FramerBox
@@ -64,35 +71,23 @@ export default function Login() {
                 justifyContent='flex-end'
                 alignItems='stretch'
                 px='0'
+                position='relative'
             >
+
                 <Flex
-                    direction='column'
-                    zIndex='10'
-                    bgColor='white'
-                    backdropFilter='blur(5px)'
-                    alignItems='center'
-                    minW='35%'
+                    minW='450px'
+                    w='35%'
                     position='relative'
                     overflow='hidden'
-                    h='100%'
-                    overflowY='auto'
                 >
-                    <Flex
-                        p='50px 50px'
-                        w='100%'
-                        display='flex'
-                        pt='8'
-                    >
-                        <Logotype fontSize='3xl' />
-                    </Flex>
                     <FramerBox
-                        left='0%'
+                        zIndex='11'
+                        top='0'
+                        left='0'
                         position='absolute'
                         h='100%'
                         w='100%'
                         bgColor='caroline.blue'
-                        zIndex='3'
-
                         variants={{
                             hidden: {
                                 left: '0%',
@@ -113,35 +108,119 @@ export default function Login() {
                                 }
                             }
                         }}
-
                         initial='visibleLeft'
-
                         animate={controls}
-                    >
-                    </FramerBox>
+                    />
                     <Flex
                         direction='column'
-                        justifyContent='center'
-                        flex='1'
-                        px='50px'
-                        w='100%'
-                    >
-                        {isSignUpComponent ? <SignUp /> : <SignIn />}
-                    </Flex>
-                    <Flex
-                        w='100%'
-                        py='50px'
-                        justifyContent='center'
+                        zIndex='10'
+                        bgColor='white'
+                        backdropFilter='blur(5px)'
                         alignItems='center'
+                        w='100%'
+                        position='relative'
+                        overflow='hidden'
+                        h='100%'
+                        overflowY='auto'
                     >
-                        <Link
-                            color='caroline.blue'
-                            fontWeight='600'
-                            fontSize='lg'
-                            onClick={changeLayout}
+                        <Flex
+                            p='50px 50px'
+                            w='100%'
+                            display='flex'
+                            pt='8'
                         >
-                            {isSignUpComponent ? 'Есть аккаунт? Войти.' : 'Нет аккаунта? Создать.'}
-                        </Link>
+                            <Logotype fontSize='3xl' />
+                        </Flex>
+                        <FramerBox
+                            display='flex'
+                            flexDirection='column'
+                            justifyContent='center'
+                            flex='1'
+                            px='50px'
+                            w='100%'
+                        >
+                            <Box
+                                mb='40px'
+                                position='relative'
+                            >
+                                <Heading
+                                    fontSize='7xl'
+                                    color='black'
+                                    ml='-5px'
+                                    textTransform='uppercase'
+                                >
+                                    {isSignUpComponent ? 'Register' : 'Login'}
+                                </Heading>
+
+                            </Box>
+                            {error !== null &&
+                                <Alert status='error' mb='30px'>
+                                    <AlertIcon />
+                                    Проверьте данные.
+                                </Alert>
+                            }
+                            {isSignUpComponent ? <SignUp /> : <SignIn />}
+                        </FramerBox>
+                        <Flex
+                            w='100%'
+                            py='50px'
+                            justifyContent='center'
+                            alignItems='center'
+                        >
+                            <Link
+                                color='caroline.blue'
+                                fontWeight='600'
+                                fontSize='lg'
+                                pointerEvents={!loading}
+                                transition='opacity 0.5s ease'
+                                opacity={loading ? 0 : 1}
+                                onClick={loading ? null : changeLayout}
+                            >
+                                {isSignUpComponent ? 'Есть аккаунт? Войти.' : 'Нет аккаунта? Создать.'}
+                            </Link>
+                        </Flex>
+
+                        <Box
+                            flex='0 0 10px'
+                            w='100%'
+                            position='relative'
+                            bgColor='transparent'
+                        >
+                            <FramerBox
+                                position='absolute'
+
+                                variants={{
+                                    enter: {
+                                        width: '100%',
+                                        opacity: 0,
+                                        transition: {
+                                            opacity: {
+                                                delay: 2
+                                            },
+                                            duration: 1,
+                                        }
+                                    },
+                                    animate: {
+                                        width: ['0%', '50%'],
+                                        opacity: 1,
+                                        transition: {
+                                            duration: 5,
+                                            opacity: {
+                                                duration: 0
+                                            }
+                                        }
+                                    }
+                                }}
+
+                                animate={loading ? 'animate' : 'enter'}
+                                transition={{
+                                    duration: 5,
+                                }}
+                                w='50%'
+                                h='100%'
+                                bgColor='caroline.blue'
+                            />
+                        </Box>
                     </Flex>
                 </Flex>
 
@@ -152,11 +231,8 @@ export default function Login() {
                     alignItems='flex-start'
                     position='relative'
                     overflow='hidden'
-                    bgColor='#030303'
+                    bgColor='#000000'
                     p='12'
-
-                    onMouseEnter={() => setContentHover(true)}
-                    onMouseLeave={() => setContentHover(false)}
                 >
 
                     <Box zIndex='10' alignSelf='flex-end'>
@@ -170,8 +246,7 @@ export default function Login() {
                             <TypeAnimation
                                 sequence={[
                                     500,
-                                    'КАРОЛИНА',
-                                    500,
+                                    'CORA',
                                     'CAROLINE',
                                     20000
                                 ]}
@@ -182,15 +257,18 @@ export default function Login() {
                             />
                         </Text>
 
-                        <FramerText fontSize='2xl'>
+                        <FramerText fontSize='2xl' letterSpacing='wide'>
                             The name Caroline is of French origin and means "strong." It is the feminine version of Charles, which means "free man."
                         </FramerText>
                     </Box>
 
-                    <LoginBackground isSignUp={isSignUp} />
-                    <LoginImage isSignUp={isSignUp} />
-
-                    {/* <Image position='absolute' bottom='0' right='0' h='100%' src={require('../../assets/photos/tears.jpg')}></Image> */}
+                    <Flex
+                        position='absolute'
+                        top='0' left='0' w='100%' h='100%'
+                    >
+                        <LoginBackground isSignUp={isSignUp} flex='1' />
+                        <LoginImage isSignUp={isSignUp} zIndex='8' />
+                    </Flex>
                 </Flex>
             </Container>
 

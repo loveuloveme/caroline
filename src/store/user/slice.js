@@ -16,7 +16,11 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setLoading(state, action) {
+            state.loading = true;
+        }
+    },
     extraReducers: {
         [loginUser.pending]: (state) => {
             state.loading = true
@@ -55,9 +59,10 @@ const userSlice = createSlice({
         },
         [getMe.rejected]: (state, { payload }) => {
             state.loading = false
-            state.error = payload
+            // state.error = payload
         },
     },
 });
 
+export const { setLoading } = userSlice.actions;
 export default userSlice.reducer;

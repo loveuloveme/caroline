@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, useRoutes, BrowserRouter } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 
@@ -19,6 +19,13 @@ import { Provider } from 'react-redux';
 
 import history from "./history";
 
+const AppRoutes = () => useRoutes([
+    { path: "/home", element: <Home /> },
+    { path: "/board", element: <Board /> },
+    { path: "/", element: <Login /> },
+]);
+
+
 function App() {
     const location = useLocation();
 
@@ -27,11 +34,10 @@ function App() {
             <Auth />
             <Box h='100%'>
                 <AnimatePresence exitBeforeEnter>
-                    <Routes history={history} location={location} key={location.pathname}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/board" element={<Board />} />
-                        <Route path="/login" element={<Login />} />
-                    </Routes>
+                    <AppRoutes />
+                    {/* <BrowserRouter history={history} location={location} key={location.pathname}>
+                        <AppRoutes />
+                    </BrowserRouter > */}
                 </AnimatePresence>
             </Box>
         </Provider>
