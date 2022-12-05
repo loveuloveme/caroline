@@ -17,6 +17,10 @@ const FramerPath = chakra(motion.path, {
     shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
+const FramerVideo = chakra(motion.video, {
+    shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
+});
+
 export default FramerBox;
 
-export { FramerBox, FramerPath, FramerImage, FramerText };
+export { FramerBox, FramerPath, FramerImage, FramerText, FramerVideo };

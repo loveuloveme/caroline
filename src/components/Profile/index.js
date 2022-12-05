@@ -2,13 +2,13 @@ import { Box, Heading, SimpleGrid, Text, Flex, Container, Avatar, HStack, useBoo
 import { useSelector } from "react-redux";
 
 function Profile() {
-    const { userInfo, userId } = useSelector((state) => state.user);
+    const { userInfo } = useSelector((state) => state.user);
 
     return (
         <HStack
             cursor='pointer'
         >
-            <Text onClick={() => localStorage.setItem('user-id', '')} fontSize='xl' fontWeight='bold'>{userInfo?.username}</Text>
+            <Text color='white' fontSize='xl' fontWeight='bold'>{userInfo?.username}</Text>
         </HStack>
     );
 }

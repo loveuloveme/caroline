@@ -2,7 +2,7 @@ import { Flex, Box } from '@chakra-ui/react';
 import { AnimatePresence } from 'framer-motion';
 import FramerBox, { FramerImage } from '../../components/FramerElement';
 
-function Image({ src, ...rest }) {
+function Image({ hide, src, ...rest }) {
     return (
         <FramerBox
             display='flex'
@@ -14,7 +14,9 @@ function Image({ src, ...rest }) {
             h='100%'
 
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{
+                opacity: hide ? 0 : 1,
+            }}
             exit={{ opacity: 0 }}
             transition={{
                 duration: 2
@@ -36,13 +38,13 @@ function Image({ src, ...rest }) {
     );
 }
 
-function LoginImage({ isSignUp, ...rest }) {
+function LoginImage({ hide, isSignUp, ...rest }) {
     return (
         <AnimatePresence>
             {isSignUp ?
-                <Image key='signUp' src={require('../../assets/photos/login_signup.jpg')} {...rest} />
+                <Image hide={hide} key='signUp' src={require('../../assets/photos/login_signup.jpg')} {...rest} />
                 :
-                <Image key='signIn' src={require('../../assets/photos/login_signin.jpg')} {...rest} />
+                <Image hide={hide} key='signIn' src={require('../../assets/photos/login_signin.jpg')} {...rest} />
             }
         </AnimatePresence>
     );

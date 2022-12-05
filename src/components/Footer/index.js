@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Container, HStack } from "@chakra-ui/react";
+import { Box, Text, Flex, Container, HStack, Image, VStack } from "@chakra-ui/react";
 import Logotype from "../Logotype";
 import { CloseIcon } from '@chakra-ui/icons'
 import { useAnimation } from "framer-motion";
@@ -20,48 +20,49 @@ function Footer() {
     return (
         <Box
             as='footer'
-            bgColor='#0e0e0e'
+            bgColor='#000000'
         >
             <Container
                 maxW='container.xl'
                 color='white'
-
-                display='flex'
-                justifyContent='space-between'
-                alignItems='center'
+                h='450px'
+                bgImage={require('../../assets/photos/footer.jpg')}
+                bgSize='contain'
+                bgRepeat='no-repeat'
+                bgPosition='right'
             >
-                <Box>
-                    <Text
-                        fontSize='5xl'
-                        color='white'
-                        fontWeight='bold'
-                    >
-                        Р П П Ю
-                    </Text>
-                </Box>
                 <Flex
-                    h='220px'
-                    direction='column'
-                    alignItems='center'
-                    justifyContent='center'
+                    display='flex'
+                    // justifyContent='space-between'
+                    // alignItems='center'
+                    flexDirection='column'
+                    h='100%'
                 >
-                    <ChakraBox
-                        ref={ref}
-                        animate={controls}
-                        initial="hidden"
-                        variants={{
-                            visible: { opacity: 1, transition: { duration: 1 } },
-                            hidden: { opacity: 0, }
-                        }}
+                    <Flex
+                        flex='1'
+                        alignItems='center'
                     >
-                        <HStack
-                            spacing='5'
+                        <Text w='50%' lineHeight='1.3' fontSize='2xl'>
+                            Имя Каролина зародилось в Древней Греции и в переводе означает <strong>королева</strong>. Переродилось оно из мужского имени Карл - <strong>человек</strong>
+                        </Text>
+                    </Flex>
+                    <Flex
+                        borderTop='1px solid #323232'
+                        justifyContent='space-between'
+                        alignItems='center'
+                    >
+                        <VStack
+                            py='5'
+                            alignItems='flex-start'
+                            spacing='0'
+                            color='#787878'
                         >
-                            <Logotype color='white' fontSize='2xl' />
-                            <CloseIcon w='4' h='4' />
-                            <Text fontSize='2xl'>MCKAREVICH</Text>
-                        </HStack>
-                    </ChakraBox>
+                            <Text color='#3c3c3c'>Хотелось бы, чтобы это было не хуже, чем у MrSkyScriper.</Text>
+                            <Text>Никаких прав нет, ничего не защищено.</Text>
+                            <Text color='white'>Сделано Папикяном Сергеем в <strong>2022</strong> году.</Text>
+                        </VStack>
+                        <Logotype color='white' fontSize='5xl' />
+                    </Flex>
                 </Flex>
             </Container>
         </Box>

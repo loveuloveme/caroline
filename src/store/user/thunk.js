@@ -4,12 +4,10 @@ import CarolineService from '../../services/CarolineService'
 
 export const getMe = createAsyncThunk('user/me', async (_, { rejectWithValue }) => {
     try {
-        const user = await CarolineService.getUser(localStorage.getItem('user-id'));
-        if (Array.isArray(user.data)) throw new Error('Not loggined');
+        const user = await CarolineService.getUser();
         return user.data;
     } catch (error) {
         console.log(error);
-        localStorage.setItem('user-id', '');
         return rejectWithValue(error)
     }
 });
@@ -29,9 +27,8 @@ export const registerUser = createAsyncThunk('user/register', async ({ email, pa
 export const loginUser = createAsyncThunk('user/login', async ({ email, password }, { rejectWithValue }) => {
     try {
         const user = await CarolineService.loginTokenUser(email, password);
-        localStorage.setItem('user-id', user.data.user.id);
-        console.log(user);
-        return await CarolineService.getUser(user.data.user.id).data;
+        if (user.data.status !== 'OK') throw user.data;
+        return await CarolineService.getUser().data;
     } catch (error) {
         console.log(error);
         return rejectWithValue(error)

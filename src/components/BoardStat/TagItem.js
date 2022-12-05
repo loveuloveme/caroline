@@ -32,7 +32,7 @@ function TagItem({ id, color = '#000000', name = 'Tag' }) {
                 fontSize='md'
                 fontWeight='700'
             >
-                {name}
+                {name || 'Безымянный'}
             </Text>
         </HStack>
     );

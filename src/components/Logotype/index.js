@@ -1,9 +1,9 @@
 import { Text, Flex } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-function Logotype({ color = '#285dec', ...rest }) {
+function Logotype({ to = '/home', color = '#285dec', ...rest }) {
     return (
-        <Link to="/">
+        <Link to={to}>
             <Flex
                 py='1'
                 justifyContent='center'

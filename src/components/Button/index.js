@@ -1,13 +1,42 @@
 import { Box, Text } from "@chakra-ui/react";
+import FramerBox from "../FramerElement";
 
 
 export const VARIANTS = {
     GRAY: 'gray',
     BLUE: 'blue',
-    BLACK: 'black'
+    BLACK: 'black',
+    WHITE: 'white',
+    RED: 'red'
 };
 
 const styles = {};
+
+styles[VARIANTS.WHITE] = {
+    container: {
+        bgColor: 'white',
+        _hover: { bg: '#ebedf0' },
+        _active: {
+            bg: '#dddfe2'
+        }
+    },
+    text: {
+        color: 'black'
+    }
+};
+
+styles[VARIANTS.RED] = {
+    container: {
+        bgColor: '#ed3c3c',
+        _hover: { bg: '#d13b3b' },
+        _active: {
+            bg: '#e54343'
+        }
+    },
+    text: {
+        color: 'white'
+    }
+};
 
 styles[VARIANTS.GRAY] = {
     container: {
@@ -50,7 +79,7 @@ styles[VARIANTS.BLACK] = {
 
 function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
     return (
-        <Box
+        <FramerBox
             as='button'
             // h='40px'
             lineHeight='1.2'
@@ -59,7 +88,7 @@ function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
             fontWeight='semibold'
             bg='apple.blue.dark'
             borderColor='#ccd0d5'
-            borderRadius='lg'
+            borderRadius='md'
             border='none'
 
             display='flex'
@@ -75,16 +104,7 @@ function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
                 cursor: 'not-allowed',
                 opacity: 0.7
             }}
-        // _focus={{
-        //     boxShadow:
-        //         '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-        // }}
         >
-            {/* <Flex
-                mr='3'
-            >
-                {icon}
-            </Flex> */}
             <Text
                 display='flex'
                 color='white'
@@ -93,7 +113,7 @@ function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
             >
                 {children}
             </Text>
-        </Box>
+        </FramerBox>
     );
 }
 

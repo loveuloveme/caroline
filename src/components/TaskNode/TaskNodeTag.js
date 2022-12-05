@@ -12,7 +12,7 @@ function TaskNodeTag({ name = 'tag', color }) {
             py='1 !important'
             lineHeight='none'
         >
-            {name}
+            {name || 'Безымянный'}
         </Tag>
     );
 }

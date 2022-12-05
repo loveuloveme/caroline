@@ -3,38 +3,39 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getMe } from '../../store/user/thunk';
 
-const redirectLogin = ['/login']
-
-function Auth() {
-    const { userInfo, userId, success } = useSelector((state) => state.user);
+function Auth({ children }) {
+    const { userInfo, meFetched, success } = useSelector((state) => state.user);
     const dispatch = useDispatch();
-    const location = useLocation();
+
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         dispatch(getMe());
-    }, [userId, dispatch]);
+    }, []);
 
     useEffect(() => {
-        if (userInfo == null) {
-            //navigate('/login');
-        } else {
-            if (redirectLogin.some(path => path === location.pathname)) {
-                //navigate('/');
+        if (meFetched) {
+            if (userInfo) {
+                if (location.pathname === '/') {
+                    navigate('/home');
+                }
+            } else {
+                if (location.pathname === '/home') {
+                    navigate('/');
+                }
             }
         }
-    }, [userId, userInfo]);
+    }, [meFetched]);
 
     useEffect(() => {
-        if (success) {
-            navigate('/');
-        }
+        dispatch(getMe());
     }, [success])
 
-
-
     return (
-        <></>
+        <>
+            {meFetched ? children : null}
+        </>
     );
 }
 

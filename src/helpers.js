@@ -44,19 +44,27 @@ export function parseNodes(data) {
 
 export function parseEdges(data) {
     const source = new Map();
+    const target = new Map();
 
-    return data.edges.sort((a, b) => parseInt(a.source) - parseInt(b.source)).map((item, index) => {
+    return data.filter(edge => edge.source !== edge.target).sort((a, b) => parseInt(a.source) - parseInt(b.source)).map((item, index) => {
         if (!source.has(item.source)) {
             source.set(item.source, 0);
         } else {
             source.set(item.source, source.get(item.source) + 1);
         }
 
+        if (!target.has(item.target)) {
+            target.set(item.target, 0);
+        } else {
+            target.set(item.target, target.get(item.target) + 1);
+        }
+
         return {
             id: `${index}`,
             ...item,
             type: 'custom',
-            sourceHandle: `${source.get(item.source)}`
+            sourceHandle: `${source.get(item.source)}`,
+            targetHandle: `${target.get(item.target)}`
         };
     })
 }

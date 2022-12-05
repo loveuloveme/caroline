@@ -17,29 +17,26 @@ import Auth from "./components/Auth";
 import store from './store';
 import { Provider } from 'react-redux';
 
-import history from "./history";
-
 const AppRoutes = () => useRoutes([
     { path: "/home", element: <Home /> },
-    { path: "/board", element: <Board /> },
+    { path: "/board/:boardId", element: <Board /> },
     { path: "/", element: <Login /> },
 ]);
 
 
 function App() {
-    const location = useLocation();
-
     return (
         <Provider store={store}>
-            <Auth />
-            <Box h='100%'>
-                <AnimatePresence exitBeforeEnter>
-                    <AppRoutes />
-                    {/* <BrowserRouter history={history} location={location} key={location.pathname}>
+            <Auth>
+                <Box h='100%'>
+                    <AnimatePresence exitBeforeEnter>
+                        <AppRoutes />
+                        {/* <BrowserRouter history={history} location={location} key={location.pathname}>
                         <AppRoutes />
                     </BrowserRouter > */}
-                </AnimatePresence>
-            </Box>
+                    </AnimatePresence>
+                </Box>
+            </Auth>
         </Provider>
     );
 }

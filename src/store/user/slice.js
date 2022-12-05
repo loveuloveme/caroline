@@ -1,16 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { registerUser, getMe, loginUser } from './thunk';
-
-const userId = localStorage.getItem('user-id')
-    ? localStorage.getItem('user-id')
-    : null;
+import { registerUser, getMe, loginUser, setTrelloCredentials } from './thunk';
 
 const initialState = {
     loading: false,
     userInfo: null,
     error: null,
     success: false,
-    userId
+    meFetched: false
 };
 
 const userSlice = createSlice({
@@ -56,13 +52,15 @@ const userSlice = createSlice({
             state.userInfo = payload;
             state.loading = false;
             state.success = true;
+            state.meFetched = true;
         },
         [getMe.rejected]: (state, { payload }) => {
             state.loading = false
+            state.meFetched = true;
             // state.error = payload
-        },
+        }
     },
 });
 
-export const { setLoading } = userSlice.actions;
+export const { setLoading, clearCredentialsError, setDefaultCredentialsState } = userSlice.actions;
 export default userSlice.reducer;

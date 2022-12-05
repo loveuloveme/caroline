@@ -1,8 +1,20 @@
 import { Box } from '@chakra-ui/react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 import FramerBox from '../../components/FramerElement';
 
-function Video({ children, poster, ...rest }) {
+function Video({ hide, fadeIn, children, poster, ...rest }) {
+    const controls = useAnimation();
+
+    useEffect(() => {
+        async function sequence() {
+            await controls.start({ opacity: 0, transition: { delay: 0, duration: 1 } });
+            await controls.start({ opacity: 0.3, transition: { delay: 0.5, duration: 1 } });
+        }
+
+        sequence();
+    }, [fadeIn]);
+
     return (
         <FramerBox
             h='100%'
@@ -11,13 +23,7 @@ function Video({ children, poster, ...rest }) {
             position='relative'
             {...rest}
 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3, transition: { delay: 1, duration: 2 } }}
-            exit={{ opacity: 0 }}
-        // transition={{
-        //     duration: 2
-        // }}
-
+            animate={controls}
         >
             <video
                 style={{
@@ -31,6 +37,7 @@ function Video({ children, poster, ...rest }) {
                 controls={false}
                 playsInline
                 muted
+                preload="none"
             >
                 {children}
             </video>
@@ -38,21 +45,12 @@ function Video({ children, poster, ...rest }) {
     );
 }
 
-function LoginBackground({ isSignUp, ...rest }) {
+function LoginBackground({ hide, isSignUp, ...rest }) {
     return (
-        <AnimatePresence exitBeforeEnter>
-            {!isSignUp ?
-                <Video key='signUp' poster={require('../../assets/photos/posters/signin.jpg')}>
-                    <source src={require('../../assets/videos/signinBg.webm')} type='video/webm' />
-                    <source src={require('../../assets/videos/signinBg.mp4')} type='video/mp4' />
-                </Video>
-                :
-                <Video key='signIn' src={require('../../assets/videos/signinBg.webm')} poster={require('../../assets/photos/posters/signup.jpg')}>
-                    <source src={require('../../assets/videos/signinBg.webm')} type='video/webm' />
-                    <source src={require('../../assets/videos/signinBg.mp4')} type='video/mp4' />
-                </Video>
-            }
-        </AnimatePresence>
+        <Video hide={hide} fadeIn={isSignUp} poster={require('../../assets/photos/posters/signin.jpg')}>
+            <source src={require('../../assets/videos/background.webm')} type='video/webm' />
+
+        </Video>
     );
 }
 

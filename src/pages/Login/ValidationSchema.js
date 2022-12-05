@@ -4,7 +4,7 @@ const ValidationSchema = Yup.object().shape({
     username: Yup.string()
         .min(2, 'Коротко')
         .max(50, 'Чересчур')
-        .required('Required'),
+        .required('Обязательное поле'),
     password: Yup.string()
         .min(2, 'Коротко')
         .max(50, 'Чересчур')
@@ -12,10 +12,10 @@ const ValidationSchema = Yup.object().shape({
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
             "Слишком просто"
         )
-        .required('Required'),
+        .required('Обязательное поле'),
     repassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-    email: Yup.string().email('Это не почта').required('Required'),
+        .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
+    email: Yup.string().email('Это не почта').required('Обязательное поле'),
 });
 
 export default ValidationSchema;

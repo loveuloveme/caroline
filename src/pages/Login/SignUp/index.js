@@ -1,5 +1,5 @@
 import { Stack, Heading, VStack, Icon } from '@chakra-ui/react';
-import TextInput from '../TextInput';
+import TextInput from '../../../components/TextInput';
 import { MdEmail, MdPassword } from 'react-icons/md';
 import { FaUser } from 'react-icons/fa';
 import Button from '../../../components/Button';
