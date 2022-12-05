@@ -112,6 +112,7 @@ function BoardStat({ title, users, tags, states, handle }) {
                         borderRadius='xl'
 
                         variants={itemVariants}
+                        w='100%'
                     >
                         <Text mb='10px' fontSize='lg' fontWeight='600' color='#b3b3b3'>Доска</Text>
                         <Text
@@ -145,7 +146,7 @@ function BoardStat({ title, users, tags, states, handle }) {
                                     as={IoExpand}
                                 />
                             </Button>
-                            <Button
+                            {/* <Button
                                 w='50px'
                                 h='50px'
                             >
@@ -154,7 +155,7 @@ function BoardStat({ title, users, tags, states, handle }) {
                                     h='5'
                                     as={IoGitBranch}
                                 />
-                            </Button>
+                            </Button> */}
                         </HStack>
                     </FramerBox>
                     <FramerBox

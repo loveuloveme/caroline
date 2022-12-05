@@ -79,7 +79,7 @@ function Board() {
                         type: "task",
                         state: states.data.find(state => state.id === card.state),
                         description: card.description,
-                        image: card?.image,
+                        image: card?.img,
                         users: card.workers.map(user => members.data.find(item => item.id === user)),
                         sourceCount: edges.reduce((prev, edge) => {
                             return prev + (edge.source === card.id ? 1 : 0)

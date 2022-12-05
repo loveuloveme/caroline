@@ -1,6 +1,6 @@
 import { Tag } from '@chakra-ui/react';
 
-function TaskNodeTag({ name = 'tag', color }) {
+function TaskNodeTag({ name = 'tag', color, ...rest }) {
     return (
         <Tag
             size='md'
@@ -11,6 +11,7 @@ function TaskNodeTag({ name = 'tag', color }) {
             borderRadius='sm'
             py='1 !important'
             lineHeight='none'
+            {...rest}
         >
             {name || 'Безымянный'}
         </Tag>

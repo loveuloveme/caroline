@@ -97,13 +97,13 @@ function TaskNode({ data }) {
                         spacing='2px'
                         alignItems='center'
                     >
-                        {users.map(user => <TaskNodeUser name={user.name} img={user.img} key={user.name} />)}
+                        {users.slice(0, 2).map(user => <TaskNodeUser name={user.name} img={user.img} key={user.name} />)}
                     </HStack>
                     <HStack
                         alignItems='center'
                         spacing='1'
                     >
-                        {tags.map(tag => <TaskNodeTag name={tag.name} color={tag.color} key={tag.name} />)}
+                        {tags.slice(0, 2).map(tag => <TaskNodeTag name={tag.name} color={tag.color} key={tag.name} />)}
                     </HStack>
                 </Flex>
             </Flex>
