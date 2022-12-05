@@ -1,4 +1,4 @@
-import { Flex, Heading, HStack, Image, Text, Code } from '@chakra-ui/react';
+import { Flex, Heading, HStack, Image, Text, Code, SimpleGrid } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { Position } from 'react-flow-renderer';
 import { useBoard } from "../../pages/Board/context";
@@ -89,22 +89,23 @@ function TaskNode({ data }) {
                     />
                 }
                 <Flex
-                    alignItems='center'
+                    alignItems='flex-start'
                     mt='3'
                     justifyContent='space-between'
                 >
-                    <HStack
-                        spacing='2px'
-                        alignItems='center'
-                    >
+                    <SimpleGrid columns='3' gap='1'>
                         {users.slice(0, 2).map(user => <TaskNodeUser name={user.name} img={user.img} key={user.name} />)}
-                    </HStack>
-                    <HStack
+                    </SimpleGrid>
+
+                    <SimpleGrid columns='2' gap='1' style={{ direction: 'rtl' }}>
+                        {tags.map(tag => <TaskNodeTag style={{ direction: 'ltr' }} display='inline-grid' name={tag.name} color={tag.color} key={tag.name} />)}
+                    </SimpleGrid>
+                    {/* <HStack
                         alignItems='center'
                         spacing='1'
                     >
                         {tags.slice(0, 2).map(tag => <TaskNodeTag name={tag.name} color={tag.color} key={tag.name} />)}
-                    </HStack>
+                    </HStack> */}
                 </Flex>
             </Flex>
         </ChakraBox>
