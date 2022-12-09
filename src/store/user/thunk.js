@@ -7,8 +7,10 @@ export const getMe = createAsyncThunk('user/me', async (_, { rejectWithValue }) 
         const user = await CarolineService.getUser();
         return user.data;
     } catch (error) {
-        console.log(error);
-        return rejectWithValue(error)
+        return rejectWithValue({
+            response: error.response.data,
+            status: error.status
+        });
     }
 });
 
@@ -19,8 +21,10 @@ export const registerUser = createAsyncThunk('user/register', async ({ email, pa
 
         return user.data.user;
     } catch (error) {
-        console.log(error);
-        return rejectWithValue(error)
+        return rejectWithValue({
+            response: error.response.data,
+            status: error.status
+        });
     }
 });
 
@@ -30,7 +34,9 @@ export const loginUser = createAsyncThunk('user/login', async ({ email, password
         if (user.data.status !== 'OK') throw user.data;
         return await CarolineService.getUser().data;
     } catch (error) {
-        console.log(error);
-        return rejectWithValue(error)
+        return rejectWithValue({
+            response: error.response.data,
+            status: error.status
+        });
     }
 });

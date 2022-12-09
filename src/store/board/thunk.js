@@ -6,7 +6,9 @@ export const getBoards = createAsyncThunk('board/all', async (_, { rejectWithVal
         const boards = await CarolineService.getBoards();
         return boards.data;
     } catch (error) {
-        console.log(error);
-        return rejectWithValue(error)
+        return rejectWithValue({
+            response: error.response.data,
+            status: error.status
+        });
     }
 });

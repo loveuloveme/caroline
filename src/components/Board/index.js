@@ -4,7 +4,7 @@ import ReactFlow, { MiniMap } from "react-flow-renderer";
 import TaskNode from "../TaskNode";
 import TaskEdge from "../TaskEdge";
 
-function Board({ nodes, edges, miniMap = true, ...rest }) {
+function Board({ nodes, edges, miniMap = false, ...rest }) {
     const nodeTypes = useMemo(() => ({ task: TaskNode }), []);
     const edgeTypes = useMemo(() => ({ custom: TaskEdge }), []);
 

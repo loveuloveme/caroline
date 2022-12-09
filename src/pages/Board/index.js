@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Text, keyframes, usePrefersReducedMotion } from "@c
 import BoardStat from "../../components/BoardStat/index.js";
 import BoardComponent from '../../components/Board';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BoardProvider from './context';
 import ChakraBox, { FramerBox } from "../../components/FramerElement/index.js";
 import { parseEdges, temp_ParseData } from "../../helpers.js";
@@ -18,6 +18,7 @@ const flash = keyframes`
 `
 
 function Board() {
+    const dataFetchedRef = useRef(false);
     const { boardId } = useParams();
     const [boardData, setBoardData] = useState({
         tags: [],
@@ -34,29 +35,22 @@ function Board() {
     const handle = useFullScreenHandle();
 
     useEffect(() => {
+        if (dataFetchedRef.current) return;
+        dataFetchedRef.current = true;
+
         async function fetchData() {
             const board = CarolineService.getBoard(boardId);
             const cards = CarolineService.getBoardCards(boardId);
             const members = CarolineService.getBoardMembers(boardId);
             const tags = CarolineService.getBoardTags(boardId);
             const states = CarolineService.getBoardStates(boardId);
+            const edges = CarolineService.getBoardEdges(boardId);
 
-            Promise.all([board, cards, members, tags, states]).then(async data => {
-                let [board, cards, members, tags, states] = data;
-                const edgesPromise = await Promise.all(cards.data.map(card => CarolineService.getBoardEdges(boardId, card.id)));
-                let edges = [];
-                edgesPromise.forEach(item => edges.push(...item.data));
-                edges = parseEdges(edges);
+            Promise.all([board, cards, members, tags, states, edges]).then(async data => {
+                let [board, cards, members, tags, states, edges] = data.map(value => value.data);
+                edges = edges.flat();
 
-                members.data = members.data.map(member => {
-                    return {
-                        id: member.id,
-                        name: member.fullName,
-                        img: member.imageUrl + '/50.png'
-                    };;
-                })
-
-                const nodes = cards.data.map(card => ({
+                const nodes = cards.map(card => ({
                     "id": card.id,
                     "position": {
                         "x": -100,
@@ -71,16 +65,16 @@ function Board() {
                             2,
                             3
                         ],
-                        tags: card.tags.map(tag => tags.data.find(item => item.id === tag)),
+                        tags: card.tags.map(tag => tags.find(item => item.id === tag)),
                         position: {
                             "x": -100,
                             "y": 0
                         },
                         type: "task",
-                        state: states.data.find(state => state.id === card.state),
+                        state: states.find(state => state.id === card.state),
                         description: card.description,
                         image: card?.img,
-                        users: card.workers.map(user => members.data.find(item => item.id === user)),
+                        users: card.workers.map(user => members.find(item => item.id === user)),
                         sourceCount: edges.reduce((prev, edge) => {
                             return prev + (edge.source === card.id ? 1 : 0)
                         }, 0),
@@ -91,23 +85,21 @@ function Board() {
                 }));
 
                 setNodes(getLayoutedElements(nodes, edges).nodes);
-                setEdges(edges);
+                setEdges(parseEdges(edges));
 
                 setBoardData(prev => ({
                     ...prev,
-                    title: board.data.title,
-                    tags: tags.data,
-                    states: states.data,
-                    users: members.data
+                    title: board.title,
+                    tags: tags,
+                    states: states,
+                    users: members
                 }));
 
                 setLoading(false);
-            })
+            });
         };
 
         fetchData();
-        //setEdges(edges);
-        //setBoardData({ tags, states, users, title });
     }, []);
 
     return (
@@ -138,7 +130,7 @@ function Board() {
                             justifyContent='center'
                             alignItems='center'
                         >
-                            <Text fontFamily='monospace' fontSize='4xl' fontWeight='500' color='caroline.blue'>HTTP/1.1 200 OK</Text>
+                            <Text fontSize='4xl' fontWeight='500' color='caroline.blue'>CAROLINE</Text>
                         </FramerBox>
                         :
                         <FullScreen className='board-content' handle={handle}>

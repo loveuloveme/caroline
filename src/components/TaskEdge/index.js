@@ -41,20 +41,19 @@ function TaskEdge(props) {
                 d={getSmartEdgeResponse}
                 markerEnd={markerEnd}
                 markerStart={markerStart}
-                strokeDasharray='100%'
-                strokeDashoffset='100%'
-                strokeWidth='8'
-                stroke='#000000'
+                strokeWidth='10'
+                stroke='#323232'
 
+                initial={{
+                    opacity: 0
+                }}
                 animate={{
-                    strokeDashoffset: ['100%', '0%']
+                    opacity: [0, 1]
                 }}
 
                 transition={{
                     delay: 2,
-                    duration: 1.5,
-                    type: 'spring',
-                    bounce: '0.20'
+                    duration: 1
                 }}
             />
         </>

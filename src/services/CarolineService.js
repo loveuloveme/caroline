@@ -43,10 +43,6 @@ export const loginTokenUser = (email, password) => {
     });
 };
 
-//https:/.com/app-key
-//5b449c749d3b9865efec800c9665974d
-//11fcfc2efaddaf0fd6f8a2ef44b57db3d93244fd4f92b88a4919acac05002765
-
 export const getUserList = () => {
     return http.get('/users');
 };
@@ -97,8 +93,8 @@ export const getBoardMembers = (boardId) => {
     return http.get(`/boards/${boardId}/members/?type=trello`);
 };
 
-export const getBoardEdges = (boardId, cardId) => {
-    return http.get(`/boards/${boardId}/cards/${cardId}/edges/?type=trello`);
+export const getBoardEdges = (boardId) => {
+    return http.get(`/boards/${boardId}/edges/?type=trello`);
 };
 
 export default {

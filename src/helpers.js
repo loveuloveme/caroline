@@ -46,7 +46,7 @@ export function parseEdges(data) {
     const source = new Map();
     const target = new Map();
 
-    return data.filter(edge => edge.source !== edge.target).sort((a, b) => parseInt(a.source) - parseInt(b.source)).map((item, index) => {
+    return data.filter(edge => edge.source !== edge.target).map((item, index) => {
         if (!source.has(item.source)) {
             source.set(item.source, 0);
         } else {
