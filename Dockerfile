@@ -7,16 +7,14 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm ci --production
 
 COPY . .
 
 RUN npm run build
 
-FROM node:16
+FROM nginx:1.12-alpine as prod
 
-WORKDIR /app
+COPY --from=builder /app/build /usr/share/nginx/html
 
-COPY --from=builder /app/build ./build
-
-CMD [ "npm", "run", "start" ]
+CMD [ "nginx", "-g", "daemon off;"]
