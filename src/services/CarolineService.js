@@ -52,11 +52,11 @@ export const getUser = id => {
 };
 
 export const createBoard = url => {
-    return http.post(`/boards/?url=${url}&type=trello`);
+    return http.post(`/boards?url=${url}&type=trello`);
 };
 
 export const getBoards = () => {
-    return http.get(`/boards/?type=trello`);
+    return http.get(`/boards?type=trello`);
 };
 
 export const getBoard = (boardId) => {
@@ -68,7 +68,7 @@ export const removeBoard = (boardId) => {
 };
 
 export const setTrelloCredentials = (apiKey, oAuthToken) => {
-    return http.post(`/credentials/?type=trello`, { apiKey, oAuthToken });
+    return http.post(`/credentials?type=trello`, { apiKey, oAuthToken });
 };
 
 export const logout = () => {
@@ -78,23 +78,23 @@ export const logout = () => {
 };
 
 export const getBoardCards = (boardId) => {
-    return http.get(`/boards/${boardId}/cards/?type=trello`);
+    return http.get(`/boards/${boardId}/cards?type=trello`);
 };
 
 export const getBoardTags = (boardId) => {
-    return http.get(`/boards/${boardId}/tags/?type=trello`);
+    return http.get(`/boards/${boardId}/tags?type=trello`);
 };
 
 export const getBoardStates = (boardId) => {
-    return http.get(`/boards/${boardId}/states/?type=trello`);
+    return http.get(`/boards/${boardId}/states?type=trello`);
 };
 
 export const getBoardMembers = (boardId) => {
-    return http.get(`/boards/${boardId}/members/?type=trello`);
+    return http.get(`/boards/${boardId}/members?type=trello`);
 };
 
 export const getBoardEdges = (boardId) => {
-    return http.get(`/boards/${boardId}/edges/?type=trello`);
+    return http.get(`/boards/${boardId}/edges?type=trello`);
 };
 
 export default {
