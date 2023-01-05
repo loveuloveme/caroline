@@ -89,6 +89,7 @@ function Board() {
 
                 setBoardData(prev => ({
                     ...prev,
+                    url: board.url,
                     title: board.title,
                     tags: tags,
                     states: states,

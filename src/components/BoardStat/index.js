@@ -47,7 +47,7 @@ const itemVariants = {
     hidden: { opacity: 0, x: -50 },
 }
 
-function BoardStat({ title, users, tags, states, handle }) {
+function BoardStat({ url, title, users, tags, states, handle }) {
     const { query, clearUser, clearTag, clearState } = useBoard();
 
     const [isOpen, setOpen] = useBoolean(true);
@@ -56,7 +56,7 @@ function BoardStat({ title, users, tags, states, handle }) {
     const controls = useAnimation();
 
     const openBoard = () => {
-        window.open('https://trello.com');
+        window.open(url);
     };
 
     const setFullscreen = () => {
