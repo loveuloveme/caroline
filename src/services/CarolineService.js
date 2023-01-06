@@ -19,10 +19,6 @@ export const createUser = (email, password, username) => {
             {
                 id: 'username',
                 value: username
-            },
-            {
-                id: 'fullname',
-                value: 'John Doe'
             }
         ]
     });
