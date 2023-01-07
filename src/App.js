@@ -4,9 +4,10 @@ import { AnimatePresence } from "framer-motion";
 
 import "@fontsource/open-sans/700.css";
 import "@fontsource/open-sans/800.css";
-import "@fontsource/raleway/500.css";
-import "@fontsource/raleway/600.css";
-import "@fontsource/raleway/700.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
 import "@fontsource/roboto-mono";
 
 import Home from "./pages/Home";

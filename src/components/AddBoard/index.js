@@ -60,7 +60,7 @@ function AddBoard({ buttonVariant }) {
 
     return (
         <>
-            <Button fontWeight='bold' variant={buttonVariant ?? 'gray'} onClick={disclosure.onOpen}>Добавить доску</Button>
+            <Button fontWeight='500' variant={buttonVariant ?? 'gray'} onClick={disclosure.onOpen}>Добавить доску</Button>
             <ModalLayout
                 isOpen={disclosure.isOpen}
                 onClose={loading ? null : disclosure.onClose}

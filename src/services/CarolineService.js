@@ -1,111 +1,100 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: process.env.REACT_APP_API_ENDPOINT,
-    withCredentials: true
-});
+class CarolineService {
+    constructor() {
+        this.http = axios.create({
+            baseURL: process.env.REACT_APP_API_ENDPOINT,
+            withCredentials: true
+        });
+    }
 
-export const createUser = (email, password, username) => {
-    return http.post('/auth/signup', {
-        formFields: [
-            {
-                id: 'email',
-                value: email
-            },
-            {
-                id: 'password',
-                value: password
-            },
-            {
-                id: 'username',
-                value: username
-            }
-        ]
-    });
-};
+    createUser(email, password, username) {
+        return this.http.post('/auth/signup', {
+            formFields: [
+                {
+                    id: 'email',
+                    value: email
+                },
+                {
+                    id: 'password',
+                    value: password
+                },
+                {
+                    id: 'username',
+                    value: username
+                }
+            ]
+        });
+    };
 
-export const loginTokenUser = (email, password) => {
-    return http.post('/auth/signin', {
-        formFields: [
-            {
-                id: 'email',
-                value: email
-            },
-            {
-                id: 'password',
-                value: password
-            }
-        ]
-    });
-};
+    loginTokenUser(email, password) {
+        return this.http.post('/auth/signin', {
+            formFields: [
+                {
+                    id: 'email',
+                    value: email
+                },
+                {
+                    id: 'password',
+                    value: password
+                }
+            ]
+        });
+    };
 
-export const getUserList = () => {
-    return http.get('/users');
-};
+    getUserList() {
+        return this.http.get('/users');
+    };
 
-export const getUser = id => {
-    return http.get(`/users/me`);
-};
+    getUser(id) {
+        return this.http.get(`/users/me`);
+    };
 
-export const createBoard = url => {
-    return http.post(`/boards?url=${url}&type=trello`);
-};
+    createBoard(url, type = 'trello') {
+        return this.http.post(`/boards?url=${url}&type=${type}`);
+    };
 
-export const getBoards = () => {
-    return http.get(`/boards?type=trello`);
-};
+    getBoards(type = 'trello') {
+        return this.http.get(`/boards?type=${type}`);
+    };
 
-export const getBoard = (boardId) => {
-    return http.get(`/boards/${boardId}?type=trello`);
-};
+    getBoard(boardId, type = 'trello') {
+        return this.http.get(`/boards/${boardId}?type=${type}`);
+    };
 
-export const removeBoard = (boardId) => {
-    return http.delete(`/boards/${boardId}?type=trello`);
-};
+    removeBoard(boardId, type = 'trello') {
+        return this.http.delete(`/boards/${boardId}?type=${type}`);
+    };
 
-export const setTrelloCredentials = (apiKey, oAuthToken) => {
-    return http.post(`/credentials?type=trello`, { apiKey, oAuthToken });
-};
+    setCredentials(service, params) {
+        return this.http.post(`/credentials?type=${service}`, params);
+    };
 
-export const logout = () => {
-    localStorage.setItem('apiKey', '');
-    localStorage.setItem('oAuthToken', '');
-    return http.post('/auth/signout');
-};
+    logout() {
+        localStorage.setItem('apiKey', '');
+        localStorage.setItem('oAuthToken', '');
+        return this.http.post('/auth/signout');
+    };
 
-export const getBoardCards = (boardId) => {
-    return http.get(`/boards/${boardId}/cards?type=trello`);
-};
+    getBoardCards(boardId, type = 'trello') {
+        return this.http.get(`/boards/${boardId}/cards?type=${type}`);
+    };
 
-export const getBoardTags = (boardId) => {
-    return http.get(`/boards/${boardId}/tags?type=trello`);
-};
+    getBoardTags(boardId, type = 'trello') {
+        return this.http.get(`/boards/${boardId}/tags?type=${type}`);
+    };
 
-export const getBoardStates = (boardId) => {
-    return http.get(`/boards/${boardId}/states?type=trello`);
-};
+    getBoardStates(boardId, type = 'trello') {
+        return this.http.get(`/boards/${boardId}/states?type=${type}`);
+    };
 
-export const getBoardMembers = (boardId) => {
-    return http.get(`/boards/${boardId}/members?type=trello`);
-};
+    getBoardMembers(boardId, type = 'trello') {
+        return this.http.get(`/boards/${boardId}/members?type=${type}`);
+    };
 
-export const getBoardEdges = (boardId) => {
-    return http.get(`/boards/${boardId}/edges?type=trello`);
-};
+    getBoardEdges(boardId, type = 'trello') {
+        return this.http.get(`/boards/${boardId}/edges?type=${type}`);
+    };
+}
 
-export default {
-    createUser,
-    getUserList,
-    getUser,
-    loginTokenUser,
-    createBoard,
-    setTrelloCredentials,
-    getBoards,
-    removeBoard,
-    getBoardCards,
-    getBoardMembers,
-    getBoardStates,
-    getBoardTags,
-    getBoardEdges,
-    getBoard
-};
+export default new CarolineService();

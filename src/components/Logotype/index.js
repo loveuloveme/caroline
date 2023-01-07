@@ -12,7 +12,7 @@ function Logotype({ to = '/home', color = '#285dec', ...rest }) {
             >
 
                 <Text
-                    fontWeight='bold'
+                    fontWeight='500'
                     zIndex='10'
                     color={color}
 

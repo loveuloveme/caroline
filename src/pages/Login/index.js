@@ -138,7 +138,7 @@ export default function Login() {
                             display='flex'
                             pt='8'
                         >
-                            <Logotype fontSize='3xl' to='/' />
+                            <Logotype fontWeight='600' fontSize='3xl' to='/' />
                         </Flex>
                         <FramerBox
                             display='flex'

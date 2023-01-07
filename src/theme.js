@@ -16,7 +16,7 @@ const theme = extendTheme({
     },
     fonts: {
         heading: '"Open Sans", sans-serif',
-        body: '"Raleway", sans-serif',
+        body: '"Inter", sans-serif',
         mono: '"Roboto Mono", monospace'
     },
     styles: {

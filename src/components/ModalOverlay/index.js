@@ -19,6 +19,7 @@ function ModalLayout({ isOpen, onClose, title, children }) {
                 onClose={onClose}
                 isOpen={isOpen}
                 motionPreset='slideInBottom'
+                scrollBehavior='outside'
             >
                 <ModalOverlay bgColor='rgba(0, 0, 0, 0.6)' backdropFilter='blur(23px)' />
                 <ModalContent

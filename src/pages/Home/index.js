@@ -108,7 +108,7 @@ function Home() {
                                 fontSize='3xl'
                                 color='white'
                             />
-                            <UserProfile />
+
                         </Flex>
                     </Container>
                 </Box>
@@ -122,6 +122,7 @@ function Home() {
                         alignItems='flex-end'
                         h='450px'
                         pb='5'
+                        position='relative'
                     >
                         <Heading
                             fontSize='9xl'
@@ -130,6 +131,7 @@ function Home() {
                         >
                             BOARDS
                         </Heading>
+                        <UserProfile />
                         {boards.length > 0 &&
                             <HStack>
                                 <AddBoard />

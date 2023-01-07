@@ -41,7 +41,7 @@ function NothingItem({ error, loading, ...rest }) {
                             alignItems='flex-end'
                             p='10'
                         >
-                            <Text color='white' fontSize='5xl' fontWeight='600'>До связи</Text>
+                            <Text color='white' fontSize='5xl' fontWeight='500'>До связи</Text>
                         </Flex>
                     </>
                     :
@@ -65,7 +65,7 @@ function NothingItem({ error, loading, ...rest }) {
                             alignItems='flex-end'
                             p='10'
                         >
-                            <Text textAlign='right' lineHeight='1' color='white' fontSize='5xl' fontWeight='600'>Тут так же пусто, как и на моём дне рождения</Text>
+                            <Text textAlign='right' lineHeight='1' color='white' fontSize='5xl' fontWeight='500'>Тут так же пусто, как и на моём дне рождения</Text>
                         </Flex>
                     </>
                 )

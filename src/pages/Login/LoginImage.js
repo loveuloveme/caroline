@@ -44,7 +44,7 @@ function LoginImage({ hide, isSignUp, ...rest }) {
             {isSignUp ?
                 <Image hide={hide} key='signUp' src={require('../../assets/photos/login_signup.jpg')} {...rest} />
                 :
-                <Image hide={hide} key='signIn' src={require('../../assets/photos/login_signin.jpg')} {...rest} />
+                <Image hide={hide} key='signIn' src={require('../../assets/photos/login_signup.jpg')} {...rest} />
             }
         </AnimatePresence>
     );

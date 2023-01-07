@@ -13,7 +13,7 @@ function TextInput({ error, icon, placeholder, containerStyle, titleStyle, error
             {...containerStyle}
         >
             <Flex justifyContent='space-between' mb='2' hidden={hideError}>
-                <Text fontWeight='bold' color='#313131' {...titleStyle}>{placeholder}</Text>
+                <Text fontWeight='500' color='#313131' {...titleStyle}>{placeholder}</Text>
                 <Text
                     color='red'
                     opacity={error === 'Required' || !error ? 0 : 1}
@@ -31,7 +31,7 @@ function TextInput({ error, icon, placeholder, containerStyle, titleStyle, error
                     onChange={onChange}
                     variant='filled'
                     placeholder={placeholder}
-                    _placeholder={{ opacity: 0.2, color: 'inherit', fontWeight: 'bold', fontSize: 'sm' }}
+                    _placeholder={{ opacity: 0.2, color: 'inherit', fontWeight: '500', fontSize: 'sm' }}
                     _focus={{ bgColor: 'white' }}
                     style={{
                         border: error && '2px solid #e95050'
