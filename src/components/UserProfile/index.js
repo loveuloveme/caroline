@@ -14,6 +14,8 @@ import UserProfileService from './UserProfileService';
 
 import { SiJira, SiAsana, SiTrello } from 'react-icons/si';
 import { useState } from 'react';
+import { SERVICES } from '../../common/Service';
+import FramerBox from '../FramerElement';
 
 const SERVICE = {
     TRELLO: 'TRELLO',
@@ -29,7 +31,8 @@ function UserProfile() {
 
     return (
         <>
-            <Flex
+            <FramerBox
+                display='flex'
                 h='100%'
                 alignItems='flex-end'
                 justifyContent='flex-end'
@@ -41,22 +44,23 @@ function UserProfile() {
                 position='absolute'
                 right='0'
                 bottom='0'
-                pb='50px'
+                opacity={0.5}
 
-                _hover={{
-                    bgColor: 'rgba(255, 255, 255, 0.01)'
+                whileHover={{
+                    opacity: 1,
+                    transition: { duration: 0.2 },
                 }}
             >
                 <Text color='#ffffff' fontSize='6xl' fontWeight='700' textTransform='uppercase'>user</Text>
                 <Text
-                    fontSize='8xl'
-                    color='rgba(255, 255, 255, 0.1)'
+                    fontSize='9xl'
+                    color='rgba(255, 255, 255, 1)'
                     fontWeight='600'
                     mt='-30px'
                 >
                     {userInfo?.username}
                 </Text>
-            </Flex>
+            </FramerBox>
             <ModalLayout
                 isOpen={disclosure.isOpen}
                 onClose={disclosure.onClose}
@@ -85,35 +89,13 @@ function UserProfile() {
                         w='100%'
                         spacing='5'
                     >
-                        {service === SERVICE.TRELLO &&
-                            <UserProfileService
-                                service='trello'
-                                fields={['apiKey', 'oAuthToken']}
-                                bgColor='caroline.blue'
-                                url='https://trello.com/app-key'
-                                icon={SiTrello}
-                            />
-                        }
-
-                        {service === SERVICE.ASANA &&
-                            <UserProfileService
-                                service='asana'
-                                fields={['apiKey', 'oAuthToken']}
-                                bgColor='#34495e'
-                                url='https://app.asana.com/0/my-apps'
-                                icon={SiAsana}
-                            />
-                        }
-
-                        {service === SERVICE.JIRA &&
-                            <UserProfileService
-                                service='jira'
-                                fields={['host', 'email', 'apiToken']}
-                                bgColor='#0052CC'
-                                url='https://id.atlassian.com/manage-profile/security/api-tokens'
-                                icon={SiJira}
-                            />
-                        }
+                        <UserProfileService
+                            service={SERVICES[service]}
+                            fields={SERVICES[service].credential.fields}
+                            bgColor={SERVICES[service].color}
+                            url={SERVICES[service].credential.url}
+                            icon={SERVICES[service].icon}
+                        />
                     </VStack>
                 </VStack>
                 <Button

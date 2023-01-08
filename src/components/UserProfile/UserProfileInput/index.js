@@ -8,7 +8,7 @@ import {
 import { ImTrello, ImSpinner2 } from 'react-icons/im';
 import TextInput from '../../TextInput';
 
-function UserProfileInput({ defaultValue, disabled, error, placeholder, onChange, ...rest }) {
+function UserProfileInput({ defaultValue, disabled, error, placeholder, onChange, icon, ...rest }) {
     return (
         <Flex
             direction='row'
@@ -23,7 +23,7 @@ function UserProfileInput({ defaultValue, disabled, error, placeholder, onChange
                     color='caroline.blue'
                     w='5'
                     h='5'
-                    as={ImTrello}
+                    as={icon}
                 />}
                 containerStyle={{ flex: 1 }}
                 titleStyle={{ color: 'white' }}

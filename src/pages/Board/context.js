@@ -1,18 +1,29 @@
 import React, { useContext, useState } from "react";
-import { toggleArray } from "../../helpers";
 
 export const BoardContext = React.createContext();
 
-export function useBoard(){
+export function useBoard() {
     return useContext(BoardContext);
 }
 
-export default function BoardProvider({ children }){
+export default function BoardProvider({ children }) {
     const [query, setQuery] = useState({
         tag: [],
         state: [],
         user: []
     });
+
+    const toggleArray = (array, value) => {
+        var index = array.indexOf(value);
+
+        if (index === -1) {
+            array.push(value);
+        } else {
+            array.splice(index, 1);
+        }
+
+        return array;
+    }
 
     const clearUser = () => {
         setQuery(prev => {
@@ -70,7 +81,7 @@ export default function BoardProvider({ children }){
 
     return (
         <BoardContext.Provider
-            value={{ query,toggleUser, toggleTag, toggleState, clearState, clearTag, clearUser }}
+            value={{ query, toggleUser, toggleTag, toggleState, clearState, clearTag, clearUser }}
         >
             {children}
         </BoardContext.Provider>

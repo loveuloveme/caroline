@@ -5,11 +5,10 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import React, { useEffect, useRef, useState } from "react";
 import BoardProvider from './context';
 import ChakraBox, { FramerBox } from "../../components/FramerElement/index.js";
-import { parseEdges, temp_ParseData } from "../../helpers.js";
 import CarolineService from "../../services/CarolineService.js";
 import { useParams } from "react-router-dom";
-import { getLayoutedElements } from "../../heh.js";
 import { AnimatePresence } from "framer-motion";
+import Layout from "../../common/Layout.js";
 
 const flash = keyframes`
   100% { opacity: 1; }
@@ -84,8 +83,9 @@ function Board() {
                     }
                 }));
 
-                setNodes(getLayoutedElements(nodes, edges).nodes);
-                setEdges(parseEdges(edges));
+                setNodes(Layout.getLayoutedElements(nodes, edges).nodes);
+                setEdges(Layout.parseEdges(edges));
+
 
                 setBoardData(prev => ({
                     ...prev,

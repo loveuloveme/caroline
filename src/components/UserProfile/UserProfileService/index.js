@@ -62,6 +62,8 @@ const UserProfileService = (props) => {
             pb='5'
             borderRadius='5px'
             justifyContent='space-between'
+
+            transition='all 0.3s ease'
             {...rest}
         >
             <Flex
@@ -88,6 +90,7 @@ const UserProfileService = (props) => {
                     <UserProfileInput
                         defaultValue={input[field]}
                         key={field}
+                        icon={icon}
                         disabled={loading}
                         error={error}
                         placeholder={field}
@@ -98,8 +101,6 @@ const UserProfileService = (props) => {
                                 ...prev,
                                 [field]: e.target.value
                             }));
-
-                            console.log(input)
                         }}
                     />
                 )};

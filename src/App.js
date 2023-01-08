@@ -32,9 +32,6 @@ function App() {
                 <Box h='100%'>
                     <AnimatePresence exitBeforeEnter>
                         <AppRoutes />
-                        {/* <BrowserRouter history={history} location={location} key={location.pathname}>
-                        <AppRoutes />
-                    </BrowserRouter > */}
                     </AnimatePresence>
                 </Box>
             </Auth>

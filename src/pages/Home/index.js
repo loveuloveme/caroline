@@ -90,13 +90,13 @@ function Home() {
                     bgImage='linear-gradient(to bottom, transparent 0%, black 100%)'
                 />
                 <Box
-                    backdropFilter='blur(15px)'
-                    bgColor='rgba(0, 0, 0, 0.2)'
+                //backdropFilter='blur(15px)'
+                // bgColor='rgba(0, 0, 0, 0.2)'
                 >
                     <Container
                         maxW='container.xl'
                         position='relative'
-                        borderBottom='1px solid #787878'
+                    // borderBottom='1px solid #787878'
                     >
                         <Flex
                             h='100px'
