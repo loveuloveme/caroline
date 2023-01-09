@@ -119,10 +119,11 @@ function Home() {
                 >
                     <Flex
                         justifyContent='space-between'
-                        alignItems='flex-end'
                         h='450px'
                         pb='5'
                         position='relative'
+                        flexDirection='column-reverse'
+                        alignItems='stretch'
                     >
                         <Heading
                             fontSize='9xl'
