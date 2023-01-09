@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, keyframes, usePrefersReducedMotion } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, keyframes, usePrefersReducedMotion, Icon } from "@chakra-ui/react";
 import BoardStat from "../../components/BoardStat/index.js";
 import BoardComponent from '../../components/Board';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -9,6 +9,7 @@ import CarolineService from "../../services/CarolineService.js";
 import { useParams } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Layout from "../../common/Layout.js";
+import { SERVICES } from "../../common/Service.js";
 
 const flash = keyframes`
   100% { opacity: 1; }
@@ -18,7 +19,7 @@ const flash = keyframes`
 
 function Board() {
     const dataFetchedRef = useRef(false);
-    const { boardId } = useParams();
+    const { boardId, service } = useParams();
     const [boardData, setBoardData] = useState({
         tags: [],
         states: [],
@@ -38,12 +39,12 @@ function Board() {
         dataFetchedRef.current = true;
 
         async function fetchData() {
-            const board = CarolineService.getBoard(boardId);
-            const cards = CarolineService.getBoardCards(boardId);
-            const members = CarolineService.getBoardMembers(boardId);
-            const tags = CarolineService.getBoardTags(boardId);
-            const states = CarolineService.getBoardStates(boardId);
-            const edges = CarolineService.getBoardEdges(boardId);
+            const board = CarolineService.getBoard(boardId, service);
+            const cards = CarolineService.getBoardCards(boardId, service);
+            const members = CarolineService.getBoardMembers(boardId, service);
+            const tags = CarolineService.getBoardTags(boardId, service);
+            const states = CarolineService.getBoardStates(boardId, service);
+            const edges = CarolineService.getBoardEdges(boardId, service);
 
             Promise.all([board, cards, members, tags, states, edges]).then(async data => {
                 let [board, cards, members, tags, states, edges] = data.map(value => value.data);
@@ -131,7 +132,7 @@ function Board() {
                             justifyContent='center'
                             alignItems='center'
                         >
-                            <Text fontSize='4xl' fontWeight='500' color='caroline.blue'>CAROLINE</Text>
+                            <Icon w='50px' h='50px' as={SERVICES[service].icon} color={SERVICES[service].color} />
                         </FramerBox>
                         :
                         <FullScreen className='board-content' handle={handle}>

@@ -26,7 +26,7 @@ function UserProfileInput({ defaultValue, disabled, error, placeholder, onChange
                     as={icon}
                 />}
                 containerStyle={{ flex: 1 }}
-                titleStyle={{ color: 'white' }}
+                titleStyle={{ color: 'white', textTransform: 'capitalize' }}
                 errorStyle={{ color: 'white' }}
                 error={error && 'Ошибка. Что-то пошло не так'}
                 disabled={disabled}

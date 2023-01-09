@@ -104,7 +104,7 @@ function BoardStat({ url, title, users, tags, states, handle }) {
                     spacing='7'
                     alignItems='flex-start'
                 >
-                    <Logotype fontSize='3xl' />
+                    <Logotype fontSize='3xl' fontWeight='600' />
                     <FramerBox
                         bgColor='white'
                         px='5'
@@ -116,11 +116,12 @@ function BoardStat({ url, title, users, tags, states, handle }) {
                     >
                         <Text mb='10px' fontSize='lg' fontWeight='600' color='#b3b3b3'>Доска</Text>
                         <Text
-                            lineHeight='50px'
+                            lineHeight='1'
                             letterSpacing='tighter'
-                            fontSize='5xl'
+                            fontSize='4xl'
                             fontWeight='700'
-                            color='black'
+                            noOfLines={3}
+                            color='apple.black'
                         >
                             {title}
                         </Text>
@@ -130,7 +131,7 @@ function BoardStat({ url, title, users, tags, states, handle }) {
                         >
                             <Button
                                 flex='1'
-                                variant={VARIANTS.BLUE}
+                                variant='blue'
                                 onClick={openBoard}
                             >
                                 Открыть доску

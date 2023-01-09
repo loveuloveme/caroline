@@ -24,6 +24,7 @@ const UserProfileService = (props) => {
             serviceData = JSON.parse(localStorage.getItem(service));
         } catch { }
 
+        setInput({});
 
         fields.forEach(field => {
             setInput(prev => {
@@ -53,6 +54,7 @@ const UserProfileService = (props) => {
         setLoading(false);
     }
 
+    console.log(input)
     return (
         <Flex
             w='100%'
@@ -63,7 +65,7 @@ const UserProfileService = (props) => {
             borderRadius='5px'
             justifyContent='space-between'
 
-            transition='all 0.3s ease'
+            transition='all 1s ease'
             {...rest}
         >
             <Flex

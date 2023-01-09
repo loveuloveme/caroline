@@ -16,6 +16,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getBoards } from "../../store/board/thunk";
 import NothingItem from "../../components/NothingItem";
+import { getServiceName } from "../../common/Service";
 
 function Home() {
     const [isEdit, setEdit] = useState(false);
@@ -128,26 +129,29 @@ function Home() {
                             fontSize='9xl'
                             fontWeight='bold'
                             color='white'
+                            lineHeight='1'
                         >
                             BOARDS
                         </Heading>
                         <UserProfile />
-                        {boards.length > 0 &&
-                            <HStack>
-                                <AddBoard />
-                                <Button
-                                    variant='gray'
-                                    onClick={() => setEdit(!isEdit)}
-                                >
-                                    <Icon
-                                        w='5'
-                                        h='5'
-                                        as={isEdit ? IoClose : IoPencil}
-                                    />
-                                </Button>
-                            </HStack>
-                        }
                     </Flex>
+                    {boards.length > 0 &&
+                        <HStack
+                            justifyContent='flex-end'
+                        >
+                            <AddBoard />
+                            <Button
+                                variant='black'
+                                onClick={() => setEdit(!isEdit)}
+                            >
+                                <Icon
+                                    w='5'
+                                    h='5'
+                                    as={isEdit ? IoClose : IoPencil}
+                                />
+                            </Button>
+                        </HStack>
+                    }
                 </Container>
             </Box>
             <Container
@@ -165,8 +169,14 @@ function Home() {
                         gap='3' s
                     >
                         {boards.map(board => {
+                            console.log(board)
                             return (
-                                <BoardItem boardId={board.boardId} isEdit={isEdit} name={board.title} type={board.type} />
+                                <BoardItem
+                                    service={getServiceName(board.url)}
+                                    boardId={board.boardId}
+                                    isEdit={isEdit}
+                                    name={board.title}
+                                />
                             );
                         })}
                     </SimpleGrid>

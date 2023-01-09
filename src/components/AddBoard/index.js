@@ -19,6 +19,7 @@ import { useMemo } from 'react';
 import { useEffect } from 'react';
 import { setDefaultAddBoard } from '../../store/board/slice';
 import CarolineService from '../../services/CarolineService';
+import { getServiceName, SERVICE, SERVICES } from '../../common/Service';
 
 function AddBoard({ buttonVariant }) {
     const dispatch = useDispatch();
@@ -28,13 +29,14 @@ function AddBoard({ buttonVariant }) {
     const [error, setError] = useState(false);
 
     const [input, setInput] = useState('');
+    const [service, setService] = useState(null);
     const handleInputChange = (e) => setInput(e.target.value);
 
     const submitBoard = async () => {
         setLoading(true);
 
         try {
-            const board = await CarolineService.createBoard(input);
+            const board = await CarolineService.createBoard(input, service);
             dispatch(getBoards());
             disclosure.onClose()
 
@@ -45,22 +47,14 @@ function AddBoard({ buttonVariant }) {
         setLoading(false);
     };
 
-    const icon = useMemo(() => {
-        const source = (input.search('trello') !== -1 && ImTrello) || AiFillFileUnknown;
-        const color = source === AiFillFileUnknown ? 'gray' : 'caroline.blue';
-
-        return <Icon
-            w='5'
-            h='5'
-            color={color}
-            as={source}
-        />;
-    }, [input]);
+    useEffect(() => {
+        setService(getServiceName(input));
+    }, [input])
 
 
     return (
         <>
-            <Button fontWeight='500' variant={buttonVariant ?? 'gray'} onClick={disclosure.onOpen}>Добавить доску</Button>
+            <Button fontWeight='500' variant={buttonVariant ?? 'black'} onClick={disclosure.onOpen}>Добавить доску</Button>
             <ModalLayout
                 isOpen={disclosure.isOpen}
                 onClose={loading ? null : disclosure.onClose}
@@ -73,7 +67,12 @@ function AddBoard({ buttonVariant }) {
                     <TextInput
                         borderRadius='4px'
                         placeholder='URL доски'
-                        icon={icon}
+                        icon={<Icon
+                            w='5'
+                            h='5'
+                            color={SERVICES?.[service]?.color || 'gray'}
+                            as={SERVICES?.[service]?.icon || AiFillFileUnknown}
+                        />}
                         containerStyle={{ flex: 1 }}
                         error={error && 'Ошибка. Проверьте url и настройки профиля'}
                         onChange={handleInputChange}

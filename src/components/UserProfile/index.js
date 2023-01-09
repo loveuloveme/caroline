@@ -11,17 +11,10 @@ import { useSelector } from "react-redux";
 import ModalLayout from '../ModalOverlay';
 import CarolineService from '../../services/CarolineService';
 import UserProfileService from './UserProfileService';
-
-import { SiJira, SiAsana, SiTrello } from 'react-icons/si';
 import { useState } from 'react';
-import { SERVICES } from '../../common/Service';
+import { SERVICE, SERVICES } from '../../common/Service';
 import FramerBox from '../FramerElement';
 
-const SERVICE = {
-    TRELLO: 'TRELLO',
-    JIRA: 'JIRA',
-    ASANA: 'ASANA'
-}
 
 function UserProfile() {
     const { userInfo } = useSelector((state) => state.user);
@@ -41,9 +34,9 @@ function UserProfile() {
                 onClick={disclosure.onOpen}
                 transition='all 0.2s ease'
 
-                position='absolute'
-                right='0'
-                bottom='0'
+                // position='absolute'
+                // right='0'
+                // bottom='0'
                 opacity={0.5}
 
                 whileHover={{
@@ -57,6 +50,7 @@ function UserProfile() {
                     color='rgba(255, 255, 255, 1)'
                     fontWeight='600'
                     mt='-30px'
+                    lineHeight='1'
                 >
                     {userInfo?.username}
                 </Text>
@@ -81,7 +75,7 @@ function UserProfile() {
                                     color={service === serv ? 'black' : 'gray.300'}
                                     onClick={() => setService(serv)}
                                 >
-                                    {serv}
+                                    {serv.toUpperCase()}
                                 </Text>
                             )}
                     </HStack>
@@ -90,7 +84,7 @@ function UserProfile() {
                         spacing='5'
                     >
                         <UserProfileService
-                            service={SERVICES[service]}
+                            service={service}
                             fields={SERVICES[service].credential.fields}
                             bgColor={SERVICES[service].color}
                             url={SERVICES[service].credential.url}

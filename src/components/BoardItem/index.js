@@ -12,8 +12,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CarolineService from "../../services/CarolineService";
 import { removeBoard } from "../../store/board/slice";
+import { SERVICES } from "../../common/Service";
 
-function BoardItem({ name, type, isEdit, setEdit, boardId }) {
+function BoardItem({ name, service, isEdit, setEdit, boardId }) {
     const dispatch = useDispatch();
     const controls = useAnimation();
     const [isDeleting, setDeleting] = useState(false);
@@ -58,13 +59,13 @@ function BoardItem({ name, type, isEdit, setEdit, boardId }) {
     };
 
     const redirect = () => {
-        navigate(`/board/${boardId}`);
+        navigate(`/board/${service}/${boardId}`);
     };
 
     return (
         <ChakraBox
-            whileHover={isEdit ?? { scale: 1.01 }}
-            whileTap={isEdit ?? { scale: 1 }}
+            whileHover={!isEdit && { scale: 1.01 }}
+            whileTap={!isEdit && { scale: 0.95 }}
             display='flex'
             bgColor='white'
             px='5'
@@ -96,8 +97,8 @@ function BoardItem({ name, type, isEdit, setEdit, boardId }) {
                     <Flex
                         w='30px'
                         h='30px'
-                        bgColor='apple.blue.light'
-                        bgGradient='linear(to-r, apple.blue.light, apple.blue.dark)'
+                        bgColor={SERVICES[service].color}
+                        //bgGradient='linear(to-r, apple.blue.light, apple.blue.dark)'
                         p='2px'
                         borderRadius='md'
                         justifyContent='center'
@@ -107,7 +108,7 @@ function BoardItem({ name, type, isEdit, setEdit, boardId }) {
                             color='white'
                             w='5'
                             h='5'
-                            as={ImTrello}
+                            as={SERVICES[service].icon}
                         />
                     </Flex>
                     {(isEdit && !isDeleting) &&

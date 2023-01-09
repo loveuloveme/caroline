@@ -1,9 +1,9 @@
 import { SiJira, SiAsana, SiTrello } from 'react-icons/si';
 
 export const SERVICE = {
-    TRELLO: 'TRELLO',
-    JIRA: 'JIRA',
-    ASANA: 'ASANA'
+    TRELLO: 'trello',
+    JIRA: 'jira',
+    ASANA: 'asana'
 }
 
 export const SERVICES = {
@@ -14,24 +14,34 @@ export const SERVICES = {
             url: 'https://trello.com/app-key',
             fields: ['apiKey', 'oAuthToken']
         },
-        isUrl: (str) => { }
+        isUrl: (str) => {
+            return str.search('trello.com/b/') !== -1;
+        }
     },
     [SERVICE.JIRA]: {
         icon: SiJira,
-        color: '#34495e',
-        credential: {
-            url: 'https://app.asana.com/0/my-apps',
-            fields: ['apiKey', 'oAuthToken']
-        },
-        isUrl: (str) => { }
-    },
-    [SERVICE.ASANA]: {
-        icon: SiAsana,
         color: '#0052CC',
         credential: {
             url: 'https://id.atlassian.com/manage-profile/security/api-tokens',
             fields: ['host', 'email', 'apiToken']
         },
-        isUrl: (str) => { }
+        isUrl: (str) => {
+            return str.search('atlassian.net/jira/') !== -1;
+        }
     },
+    [SERVICE.ASANA]: {
+        icon: SiAsana,
+        color: '#e74c3c',
+        credential: {
+            url: 'https://app.asana.com/0/my-apps',
+            fields: ['apiToken']
+        },
+        isUrl: (str) => {
+            return str.search('app.asana.com') !== -1;
+        }
+    },
+}
+
+export const getServiceName = (url) => {
+    return Object.values(SERVICE).find(serviceName => SERVICES[serviceName].isUrl(url));
 }

@@ -95,7 +95,7 @@ function Button({ children, variant = VARIANTS.GRAY, ...rest }) {
             justifyContent='center'
             alignItems='center'
 
-            px='15px'
+            px='35px'
             py='15px'
 
             {...styles[variant].container}

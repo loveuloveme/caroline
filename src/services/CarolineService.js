@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SERVICE } from '../common/Service';
 
 class CarolineService {
     constructor() {
@@ -71,8 +72,8 @@ class CarolineService {
     };
 
     logout() {
-        localStorage.setItem('apiKey', '');
-        localStorage.setItem('oAuthToken', '');
+
+        Object.values(SERVICE).forEach(service => localStorage.removeItem(service))
         return this.http.post('/auth/signout');
     };
 

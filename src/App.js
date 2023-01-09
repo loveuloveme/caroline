@@ -20,7 +20,7 @@ import { Provider } from 'react-redux';
 
 const AppRoutes = () => useRoutes([
     { path: "/home", element: <Home /> },
-    { path: "/board/:boardId", element: <Board /> },
+    { path: "/board/:service/:boardId", element: <Board /> },
     { path: "/", element: <Login /> },
 ]);
 
