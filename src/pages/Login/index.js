@@ -1,15 +1,12 @@
-import { Flex, Box, Stack, Link, Heading, Text, Container, Image, useBoolean, VStack } from '@chakra-ui/react';
-import { TypeAnimation } from 'react-type-animation';
-import FramerBox, { FramerImage, FramerText } from '../../components/FramerElement';
+import { Flex, Box, Link, Heading, Text, Container, useBoolean } from '@chakra-ui/react';
+import FramerBox, { FramerText } from '../../components/FramerElement';
 import Logotype from '../../components/Logotype';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-import { motion, AnimatePresence } from "framer-motion"
-
 import { useAnimation } from "framer-motion"
 import { pageVariants, pageTransition } from '../anims';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import LoginImage from './LoginImage';
 import LoginBackground from './LoginBackground';
 import { useSelector } from 'react-redux';
@@ -17,8 +14,6 @@ import { useSelector } from 'react-redux';
 import {
     Alert,
     AlertIcon,
-    AlertTitle,
-    AlertDescription,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 
@@ -53,6 +48,7 @@ export default function Login() {
                 navigate('/home');
             }, 1000);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [success])
 
     return (

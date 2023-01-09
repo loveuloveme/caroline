@@ -1,11 +1,7 @@
 import {
-    useDisclosure,
     Flex,
     Icon,
-    Text,
-    VStack,
 } from '@chakra-ui/react';
-import { ImTrello, ImSpinner2 } from 'react-icons/im';
 import TextInput from '../../TextInput';
 
 function UserProfileInput({ defaultValue, disabled, error, placeholder, onChange, icon, ...rest }) {

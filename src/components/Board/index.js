@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { useMemo } from "react";
-import ReactFlow, { MiniMap } from "react-flow-renderer";
+import ReactFlow, { MiniMap } from "reactflow";
 import TaskNode from "../TaskNode";
 import TaskEdge from "../TaskEdge";
 
-function Board({ nodes, edges, miniMap = false, ...rest }) {
+function Board({ nodes, edges, onNodeDragStop, onNodesChange, miniMap = false, ...rest }) {
     const nodeTypes = useMemo(() => ({ task: TaskNode }), []);
     const edgeTypes = useMemo(() => ({ custom: TaskEdge }), []);
 
@@ -17,9 +17,11 @@ function Board({ nodes, edges, miniMap = false, ...rest }) {
             <ReactFlow
                 nodeTypes={nodeTypes}
                 edgeTypes={edgeTypes}
-                defaultNodes={nodes}
-                defaultEdges={edges}
+                nodes={nodes}
+                edges={edges}
                 fitView
+                onNodeDragStop={onNodeDragStop}
+                onNodesChange={onNodesChange}
 
                 {...rest}
             >

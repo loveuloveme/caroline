@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, keyframes, usePrefersReducedMotion, Icon } from "@chakra-ui/react";
+import { Box, Flex, keyframes, Icon } from "@chakra-ui/react";
 import BoardStat from "../../components/BoardStat/index.js";
 import BoardComponent from '../../components/Board';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
@@ -7,9 +7,10 @@ import BoardProvider from './context';
 import ChakraBox, { FramerBox } from "../../components/FramerElement/index.js";
 import CarolineService from "../../services/CarolineService.js";
 import { useParams } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import Layout from "../../common/Layout.js";
 import { SERVICES } from "../../common/Service.js";
+import { useCallback } from "react";
+import { useEdgesState, useNodesState } from "reactflow";
 
 const flash = keyframes`
   100% { opacity: 1; }
@@ -30,8 +31,8 @@ function Board() {
 
     const [loading, setLoading] = useState(true);
 
-    const [nodes, setNodes] = useState([]);
-    const [edges, setEdges] = useState([]);
+    const [nodes, setNodes, onNodesChange] = useNodesState([]);
+    const [edges, setEdges] = useEdgesState([]);
     const handle = useFullScreenHandle();
 
     useEffect(() => {
@@ -60,16 +61,7 @@ function Board() {
                     "data": {
                         id: card.id,
                         title: card.title,
-                        workers: [
-                            1,
-                            2,
-                            3
-                        ],
                         tags: card.tags.map(tag => tags.find(item => item.id === tag)),
-                        position: {
-                            "x": -100,
-                            "y": 0
-                        },
                         type: "task",
                         state: states.find(state => state.id === card.state),
                         description: card.description,
@@ -84,9 +76,20 @@ function Board() {
                     }
                 }));
 
-                setNodes(Layout.getLayoutedElements(nodes, edges).nodes);
-                setEdges(Layout.parseEdges(edges));
+                if (!localStorage.getItem(`${boardId}-nodes`)) {
+                    arrangeNodes(nodes, edges);
+                } else {
+                    const positions = getSavedPosition();
 
+                    setNodes(nodes.map(node => {
+                        return {
+                            ...node,
+                            position: positions[node.id]
+                        }
+                    }))
+                }
+
+                setEdges(Layout.parseEdges(edges));
 
                 setBoardData(prev => ({
                     ...prev,
@@ -102,6 +105,35 @@ function Board() {
         };
 
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+
+
+
+    const getSavedPosition = useCallback(() => {
+        return JSON.parse(localStorage.getItem(`${boardId}-nodes`)) || {};
+    }, [boardId]);
+
+    const savePosition = useCallback((changes, node) => {
+        const nodesPositions = getSavedPosition();
+        nodesPositions[node.data.id] = node.position;
+
+        localStorage.setItem(`${boardId}-nodes`, JSON.stringify(nodesPositions));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const arrangeNodes = useCallback((nodes, edges) => {
+        let layoutedNodes = Layout.getLayoutedElements(nodes, edges).nodes.map(node => {
+            savePosition(null, node);
+            return {
+                ...node,
+                positionAbsolute: node.position
+            }
+        })
+
+        setNodes(layoutedNodes);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -141,8 +173,8 @@ function Board() {
                                 position='relative'
                                 shadow='lg'
                             >
-                                <BoardStat {...boardData} handle={handle} />
-                                <BoardComponent nodes={nodes} edges={edges} />
+                                <BoardStat {...boardData} handle={handle} arrangeNodes={() => arrangeNodes(nodes, edges)} />
+                                <BoardComponent nodes={nodes} edges={edges} onNodeDragStop={savePosition} onNodesChange={onNodesChange} />
                             </Box>
                         </FullScreen>
                     }

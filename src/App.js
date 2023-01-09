@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation, useNavigate, useRoutes, BrowserRouter } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 
@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Auth from "./components/Auth";
 import store from './store';
 import { Provider } from 'react-redux';
+import { ReactFlowProvider } from "reactflow";
 
 const AppRoutes = () => useRoutes([
     { path: "/home", element: <Home /> },
@@ -28,13 +29,15 @@ const AppRoutes = () => useRoutes([
 function App() {
     return (
         <Provider store={store}>
-            <Auth>
-                <Box h='100%'>
-                    <AnimatePresence exitBeforeEnter>
-                        <AppRoutes />
-                    </AnimatePresence>
-                </Box>
-            </Auth>
+            <ReactFlowProvider>
+                <Auth>
+                    <Box h='100%'>
+                        <AnimatePresence exitBeforeEnter>
+                            <AppRoutes />
+                        </AnimatePresence>
+                    </Box>
+                </Auth>
+            </ReactFlowProvider>
         </Provider>
     );
 }

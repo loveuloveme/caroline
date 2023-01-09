@@ -1,9 +1,8 @@
 import React from 'react';
-import { useDisclosure, Flex, Icon, Text, VStack, Link, Button } from '@chakra-ui/react';
+import { Flex, Icon, VStack, Link, Button } from '@chakra-ui/react';
 import UserProfileInput from '../UserProfileInput';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ImTrello, ImSpinner2 } from 'react-icons/im';
+import { ImSpinner2 } from 'react-icons/im';
 import { useEffect } from 'react';
 import CarolineService from '../../../services/CarolineService';
 
@@ -54,7 +53,6 @@ const UserProfileService = (props) => {
         setLoading(false);
     }
 
-    console.log(input)
     return (
         <Flex
             w='100%'

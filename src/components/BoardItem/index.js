@@ -1,10 +1,8 @@
 import { Box, Text, Flex } from "@chakra-ui/react";
 import ChakraBox from "../FramerElement";
 import Button from "../Button";
-
 import { Icon } from '@chakra-ui/react';
 import { IoClose } from 'react-icons/io5';
-import { ImTrello } from "react-icons/im";
 import { useAnimation } from "framer-motion";
 import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
@@ -41,6 +39,7 @@ function BoardItem({ name, service, isEdit, setEdit, boardId }) {
             EditOffSequence();
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit]);
 
     const remove = () => {

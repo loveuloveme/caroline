@@ -1,6 +1,6 @@
 import { Flex, Heading, HStack, Image, Text, Code, SimpleGrid } from '@chakra-ui/react';
 import { useMemo } from 'react';
-import { Position } from 'react-flow-renderer';
+import { Position } from 'reactflow';
 import { useBoard } from "../../pages/Board/context";
 import ChakraBox from '../FramerElement';
 

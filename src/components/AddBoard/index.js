@@ -3,23 +3,18 @@ import {
     Flex,
     Icon,
 } from '@chakra-ui/react';
-
 import Button from '../Button';
 import TextInput from '../TextInput';
-
-import { ImTrello, ImSpinner2 } from 'react-icons/im';
+import { ImSpinner2 } from 'react-icons/im';
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { useState } from 'react';
-
 import { AiFillFileUnknown } from 'react-icons/ai';
-import { createBoard, getBoards } from '../../store/board/thunk';
-import { useDispatch, useSelector } from 'react-redux';
+import { getBoards } from '../../store/board/thunk';
+import { useDispatch } from 'react-redux';
 import ModalLayout from '../ModalOverlay';
-import { useMemo } from 'react';
 import { useEffect } from 'react';
-import { setDefaultAddBoard } from '../../store/board/slice';
 import CarolineService from '../../services/CarolineService';
-import { getServiceName, SERVICE, SERVICES } from '../../common/Service';
+import { getServiceName, SERVICES } from '../../common/Service';
 
 function AddBoard({ buttonVariant }) {
     const dispatch = useDispatch();
@@ -36,7 +31,7 @@ function AddBoard({ buttonVariant }) {
         setLoading(true);
 
         try {
-            const board = await CarolineService.createBoard(input, service);
+            await CarolineService.createBoard(input, service);
             dispatch(getBoards());
             disclosure.onClose()
 

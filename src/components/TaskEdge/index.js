@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNodes, getBezierPath } from 'react-flow-renderer'
+import { useNodes, getBezierPath } from 'reactflow'
 import { pathfindingAStarNoDiagonal } from '@tisoap/react-flow-smart-edge'
 import { FramerPath } from '../FramerElement';
 

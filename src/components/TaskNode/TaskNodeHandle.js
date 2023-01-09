@@ -1,5 +1,5 @@
 import { VStack } from '@chakra-ui/react';
-import { Handle, Position } from 'react-flow-renderer';
+import { Handle, Position } from 'reactflow';
 
 function TaskNodeHandle({ type = 'target', position, count }) {
     const size = 10;

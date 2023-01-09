@@ -6,12 +6,13 @@ import StateItem from "./StateItem";
 import { useBoard } from "../../pages/Board/context";
 import { Icon } from '@chakra-ui/react';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
-import { IoExpand, IoGitBranch } from 'react-icons/io5';
+import { CgArrangeFront } from 'react-icons/cg';
+import { IoExpand } from 'react-icons/io5';
 import Logotype from "../Logotype";
 import { useEffect } from "react";
 import { useAnimation } from "framer-motion";
 import FramerBox from "../FramerElement";
-import Button, { VARIANTS } from "../Button";
+import Button from "../Button";
 
 const barVariants = {
     visible: {
@@ -47,7 +48,7 @@ const itemVariants = {
     hidden: { opacity: 0, x: -50 },
 }
 
-function BoardStat({ url, title, users, tags, states, handle }) {
+function BoardStat({ url, title, users, tags, states, handle, arrangeNodes }) {
     const { query, clearUser, clearTag, clearState } = useBoard();
 
     const [isOpen, setOpen] = useBoolean(true);
@@ -65,10 +66,12 @@ function BoardStat({ url, title, users, tags, states, handle }) {
 
     useEffect(() => {
         controls.start('visible');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         controls.start(isOpen ? 'slideOpen' : 'slideHidden');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen]);
 
     return (
@@ -130,6 +133,7 @@ function BoardStat({ url, title, users, tags, states, handle }) {
                             mt='7'
                         >
                             <Button
+                                px='0'
                                 flex='1'
                                 variant='blue'
                                 onClick={openBoard}
@@ -137,6 +141,7 @@ function BoardStat({ url, title, users, tags, states, handle }) {
                                 Открыть доску
                             </Button>
                             <Button
+                                px='0'
                                 w='50px'
                                 h='50px'
                                 onClick={setFullscreen}
@@ -147,57 +152,63 @@ function BoardStat({ url, title, users, tags, states, handle }) {
                                     as={IoExpand}
                                 />
                             </Button>
-                            {/* <Button
+                            <Button
+                                px='0'
                                 w='50px'
                                 h='50px'
+                                onClick={arrangeNodes}
                             >
                                 <Icon
                                     w='5'
                                     h='5'
-                                    as={IoGitBranch}
+                                    as={CgArrangeFront}
                                 />
-                            </Button> */}
+                            </Button>
                         </HStack>
                     </FramerBox>
-                    <FramerBox
-                        w='100%'
-                        variants={itemVariants}
-                    >
-                        <MenuList
-                            name='Исполнители'
-                            active={query.user.length}
-                            clear={clearUser}
+                    {users.length > 0 &&
+                        <FramerBox
+                            w='100%'
                             variants={itemVariants}
                         >
-                            {users.map((user, index) => <UserItem id={user.id} name={user.name} img={user.img} isMe={user.isMe} key={index} />)}
-                        </MenuList>
-                    </FramerBox>
-
-                    <FramerBox
-                        w='100%'
-                        variants={itemVariants}
-                    >
-                        <MenuList
-                            name='Тэги'
-                            active={query.tag.length}
-                            clear={clearTag}
+                            <MenuList
+                                name='Исполнители'
+                                active={query.user.length}
+                                clear={clearUser}
+                                variants={itemVariants}
+                            >
+                                {users.map((user, index) => <UserItem id={user.id} name={user.name} img={user.img} isMe={user.isMe} key={index} />)}
+                            </MenuList>
+                        </FramerBox>
+                    }
+                    {tags.length > 0 &&
+                        <FramerBox
+                            w='100%'
+                            variants={itemVariants}
                         >
-                            {tags.map((tag, index) => <TagItem id={tag.id} name={tag.name} color={tag.color} key={index} />)}
-                        </MenuList>
-                    </FramerBox>
-
-                    <FramerBox
-                        w='100%'
-                        variants={itemVariants}
-                    >
-                        <MenuList
-                            name='Состояния'
-                            active={query.state.length}
-                            clear={clearState}
+                            <MenuList
+                                name='Тэги'
+                                active={query.tag.length}
+                                clear={clearTag}
+                            >
+                                {tags.map((tag, index) => <TagItem id={tag.id} name={tag.name} color={tag.color} key={index} />)}
+                            </MenuList>
+                        </FramerBox>
+                    }
+                    {states.length > 0 &&
+                        <FramerBox
+                            w='100%'
+                            variants={itemVariants}
                         >
-                            {states.map((state, index) => <StateItem id={state.id} name={state.name} key={index} />)}
-                        </MenuList>
-                    </FramerBox>
+                            <MenuList
+                                name='Состояния'
+                                active={query.state.length}
+                                clear={clearState}
+                            >
+                                {states.map((state, index) => <StateItem id={state.id} name={state.name} key={index} />)}
+                            </MenuList>
+                        </FramerBox>
+                    }
                 </VStack>
             </Box>
             <Flex

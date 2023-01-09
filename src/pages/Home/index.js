@@ -1,12 +1,10 @@
-import { Box, Heading, SimpleGrid, Text, Flex, Container, HStack } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Flex, Container, HStack } from "@chakra-ui/react";
 import Logotype from '../../components/Logotype';
 import BoardItem from "../../components/BoardItem";
-// import boards from '../../data';
 import ChakraBox, { FramerVideo } from "../../components/FramerElement";
 import Footer from '../../components/Footer';
 import { useDispatch, useSelector } from "react-redux";
 import { pageTransition, pageVariants } from "../anims";
-
 import Button from '../../components/Button';
 import { Icon } from '@chakra-ui/react';
 import { IoClose, IoPencil } from 'react-icons/io5';
@@ -26,6 +24,7 @@ function Home() {
 
     useEffect(() => {
         dispatch(getBoards());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -169,7 +168,6 @@ function Home() {
                         gap='3' s
                     >
                         {boards.map(board => {
-                            console.log(board)
                             return (
                                 <BoardItem
                                     service={getServiceName(board.url)}
